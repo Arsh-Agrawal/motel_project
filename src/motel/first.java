@@ -1,6 +1,8 @@
 package motel;
 
 import java.awt.BorderLayout;
+import java.io.*;
+import java.util.*;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -60,5 +62,12 @@ public class first extends JFrame {
 		pass.setBounds(50, 184, 164, 19);
 		contentPane.add(pass);
 		pass.setColumns(10);
+		
+		String pswd = pass.toString();
+		String unm = uname.toString();
+		if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
+		{
+			
+		}
 	}
 }
