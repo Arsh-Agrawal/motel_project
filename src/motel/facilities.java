@@ -51,7 +51,7 @@ public class facilities extends JFrame {
 		contentPane.add(lblFacilities);
 		
 		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(22, 221, 117, 39);
+		btnSubmit.setBounds(242, 222, 117, 39);
 		contentPane.add(btnSubmit);
 		
 		JLabel lblType = new JLabel("Type:");

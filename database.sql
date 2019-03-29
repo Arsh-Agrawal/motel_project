@@ -11,8 +11,7 @@ create table user(
 	fname varchar(10) not null,
 	lname varchar(10) not null,
 	address varchar(40) not null,
-	phone varchar(10) not null,
-	dob varchar(10) not null
+	phone varchar(10) not null
 );
 
 create table type(
@@ -81,3 +80,5 @@ create table admin(
 );
 
 insert into admin values("testing", "test1");
+insert into admin values("test2", "test2");
+
