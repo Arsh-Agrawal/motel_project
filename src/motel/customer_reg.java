@@ -22,6 +22,7 @@ public class customer_reg extends JFrame {
 	private JTextField address;
 	private JTextField phone;
 	private JLabel lblNewLabel;
+	private JLabel return_id;
 
 	/**
 	 * Launch the application.
@@ -108,6 +109,11 @@ public class customer_reg extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(184, 6, 95, 16);
 		contentPane.add(lblNewLabel);
+		
+		return_id = new JLabel("");
+		return_id.setHorizontalAlignment(SwingConstants.CENTER);
+		return_id.setBounds(218, 224, 226, 40);
+		contentPane.add(return_id);
 	}
 
 }
