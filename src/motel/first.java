@@ -1,5 +1,5 @@
 package motel;
-
+import java.sql.*;
 import java.awt.BorderLayout;
 import java.io.*;
 import java.util.*;
@@ -11,6 +11,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class first extends JFrame {
 
@@ -27,6 +30,12 @@ public class first extends JFrame {
 				try {
 					first frame = new first();
 					frame.setVisible(true);
+					try
+					{
+						Class.forName("oracle.jdbc.driver.OracleDriver");
+						Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");  
+					}
+					catch(Exception e){ System.out.println(e);}  
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,6 +47,8 @@ public class first extends JFrame {
 	 * Create the frame.
 	 */
 	public first() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -63,11 +74,27 @@ public class first extends JFrame {
 		contentPane.add(pass);
 		pass.setColumns(10);
 		
-		String pswd = pass.toString();
-		String unm = uname.toString();
-		if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
-		{
-			
-		}
+		JButton login = new JButton("Login");
+		login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String pswd = pass.toString();
+				String unm = uname.toString();
+				if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
+				{
+					String qry = "select count(*) where username =? and password = ?";
+					PreparedStatement stmt = con.prepareStatement(qry);
+					stmt.setString(1,unm);
+					stmt.setString(2,pswd);
+					
+					ResultSet rs = stmt.executeQuery();
+					
+					
+				}
+				
+			}
+		});
+		login.setBounds(50, 243, 117, 29);
+		contentPane.add(login);
+		
 	}
 }

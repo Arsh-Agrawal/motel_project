@@ -74,3 +74,10 @@ create table orders(
 	r_id int(2) references room_service,
 	primary key(u_id,r_id)
 );
+
+create table admin(
+	username varchar(20),
+	password varchar(20)
+);
+
+insert into admin values("testing", "test1");

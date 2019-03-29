@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class customer_reg extends JFrame {
 
@@ -89,6 +92,15 @@ public class customer_reg extends JFrame {
 		phone.setBounds(89, 184, 130, 26);
 		contentPane.add(phone);
 		phone.setColumns(10);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnSubmit.setBounds(89, 243, 117, 29);
+		contentPane.add(btnSubmit);
 	}
 
 }
