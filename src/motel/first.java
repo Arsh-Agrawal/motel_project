@@ -7,10 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class first extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField uname;
+	private JTextField pass;
 
 	/**
 	 * Launch the application.
@@ -39,8 +43,22 @@ public class first extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblHelloBoi = new JLabel("hello boi");
-		lblHelloBoi.setBounds(27, 33, 69, 26);
-		contentPane.add(lblHelloBoi);
+		JLabel lblUsername = new JLabel("Username");
+		lblUsername.setBounds(50, 41, 178, 27);
+		contentPane.add(lblUsername);
+		
+		uname = new JTextField();
+		uname.setBounds(50, 80, 166, 19);
+		contentPane.add(uname);
+		uname.setColumns(10);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(50, 137, 178, 27);
+		contentPane.add(lblPassword);
+		
+		pass = new JTextField();
+		pass.setBounds(50, 184, 164, 19);
+		contentPane.add(pass);
+		pass.setColumns(10);
 	}
 }
