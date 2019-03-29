@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class customer_reg extends JFrame {
 
@@ -20,6 +21,7 @@ public class customer_reg extends JFrame {
 	private JTextField last_name;
 	private JTextField address;
 	private JTextField phone;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -101,6 +103,11 @@ public class customer_reg extends JFrame {
 		});
 		btnSubmit.setBounds(89, 243, 117, 29);
 		contentPane.add(btnSubmit);
+		
+		lblNewLabel = new JLabel("User Details");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(184, 6, 95, 16);
+		contentPane.add(lblNewLabel);
 	}
 
 }

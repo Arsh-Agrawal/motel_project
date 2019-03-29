@@ -20,6 +20,7 @@ public class first extends JFrame {
 	private JPanel contentPane;
 	private JTextField uname;
 	private JTextField pass;
+	private JLabel err_msg;
 
 	/**
 	 * Launch the application.
@@ -57,44 +58,62 @@ public class first extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(50, 41, 178, 27);
+		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsername.setBounds(24, 20, 160, 27);
 		contentPane.add(lblUsername);
 		
 		uname = new JTextField();
-		uname.setBounds(50, 80, 166, 19);
+		uname.setBounds(18, 59, 166, 19);
 		contentPane.add(uname);
 		uname.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(50, 137, 178, 27);
+		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPassword.setBounds(255, 20, 178, 27);
 		contentPane.add(lblPassword);
 		
 		pass = new JTextField();
-		pass.setBounds(50, 184, 164, 19);
+		pass.setBounds(255, 59, 164, 19);
 		contentPane.add(pass);
 		pass.setColumns(10);
 		
 		JButton login = new JButton("Login");
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String pswd = pass.toString();
 				String unm = uname.toString();
+				
 				if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
 				{
-					String qry = "select count(*) where username =? and password = ?";
+					String qry = "select count(*) as cnt  where username =? and password = ?";
 					PreparedStatement stmt = con.prepareStatement(qry);
 					stmt.setString(1,unm);
 					stmt.setString(2,pswd);
 					
 					ResultSet rs = stmt.executeQuery();
 					
-					
+					int count = rs.getInt("cnt");
+					if(count == 1)
+					{
+						//open the customer_reg frame
+						dispose();
+					}
+					else
+					{
+						err_msg.setText("wrong Username or Password!!");
+					}
 				}
 				
 			}
 		});
-		login.setBounds(50, 243, 117, 29);
+		
+		login.setBounds(162, 123, 117, 29);
 		contentPane.add(login);
+		
+		err_msg = new JLabel("");
+		err_msg.setBounds(162, 197, 117, 16);
+		contentPane.add(err_msg);
 		
 	}
 }
