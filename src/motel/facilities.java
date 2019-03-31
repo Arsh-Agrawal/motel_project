@@ -117,10 +117,11 @@ public class facilities extends JFrame {
 					}
 					if(shuttle != 0)
 					{
-						String qry = "insert into uses values(?,?)";
+						String qry = "insert into uses values(?,?,?)";
 						PreparedStatement stmt = con.prepareStatement(qry);
 						stmt.setInt(1,user_id);
 						stmt.setInt(2,3);
+						stmt.setInt(3,shuttle);
 						
 						int i = stmt.executeUpdate();
 						if(i!= 0)

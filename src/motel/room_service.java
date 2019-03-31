@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
 
 public class room_service extends JFrame {
 
@@ -19,7 +22,7 @@ public class room_service extends JFrame {
 	private JTextField id3;
 	private JTextField id4;
 	private JTextField uid;
-	private JTextField textField;
+	private JTextField id5;
 
 	/**
 	 * Launch the application.
@@ -118,18 +121,151 @@ public class room_service extends JFrame {
 		contentPane.add(uid);
 		
 		JButton btnNewButton = new JButton("Submit");
-		btnNewButton.setBounds(270, 194, 117, 58);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String text1 = id1.getText();
+				String text2 = id2.getText();
+				String text3 = id3.getText();
+				String text4 = id4.getText();
+				String text5 = id5.getText();
+				String text6 = uid.getText();
+				
+				int qt1 = Integer.parseInt(text1);
+				int qt2 = Integer.parseInt(text2);
+				int qt3 = Integer.parseInt(text3);
+				int qt4 = Integer.parseInt(text4);
+				int qt5 = Integer.parseInt(text5);
+				int user_id = Integer.parseInt(text6);
+				
+				String reply = "";
+				
+				if(text6 != null && !text6.isEmpty())
+				{
+					if(qt1 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,1);
+						stmt.setInt(3,qt1);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{						
+							//update success
+							reply = reply + "Fries ->" + qt1 +"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(qt2 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,2);
+						stmt.setInt(3,qt2);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pav Bhaji ->" + qt2 +"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(qt3 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt3);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pizza ->" + qt3 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(qt4 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt4);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pasta ->" + qt4 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(qt5 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt5);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Extra Bed ->" + qt5 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if( qt1 == 0 && qt2 == 0 && qt3 == 0 && qt4 == 0 && qt5 == 0 )
+					{
+						reply = "Nothing updated";
+					}
+				}
+				else
+				{
+					reply = "Please enter ur User ID";
+				}
+				
+				// need to create a reply jlabel variable name msg 
+				msg.setText(reply);
+				reply =""; //clearing for the next iteration of the work (being double sure)	
+				
+				
+			}
+		});
+		btnNewButton.setBounds(270, 226, 117, 26);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblExtraBed = new JLabel("Extra Bed");
 		lblExtraBed.setBounds(243, 125, 83, 16);
 		contentPane.add(lblExtraBed);
 		
-		textField = new JTextField();
-		textField.setText("0");
-		textField.setColumns(10);
-		textField.setBounds(345, 120, 66, 26);
-		contentPane.add(textField);
+		id5 = new JTextField();
+		id5.setText("0");
+		id5.setColumns(10);
+		id5.setBounds(345, 120, 66, 26);
+		contentPane.add(id5);
 		
 		JLabel lblRoomItems = new JLabel("Room Items:");
 		lblRoomItems.setBounds(243, 97, 83, 16);
