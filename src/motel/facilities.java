@@ -10,13 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class facilities extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField id1;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField id2;
+	private JTextField id3;
 	private JTextField uid;
 
 	/**
@@ -45,12 +49,103 @@ public class facilities extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		JLabel msg = new JLabel("");
+		msg.setHorizontalAlignment(SwingConstants.CENTER);
+		msg.setBounds(263, 134, 144, 66);
+		contentPane.add(msg);
 		
 		JLabel lblFacilities = new JLabel("Facilities");
 		lblFacilities.setBounds(195, 6, 61, 16);
 		contentPane.add(lblFacilities);
 		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String ghrs = id1.getText();
+				String phrs = id2.getText();
+				String shhrs = id3.getText();
+				String u_id = uid.getText();
+				
+				int gym_hours = Integer.parseInt(ghrs);
+				int pool_hours = Integer.parseInt(phrs);
+				int shuttle = Integer.parseInt(shhrs);
+				int user_id = Integer.parseInt(u_id);
+				
+				String reply = "";
+				
+				if(u_id != null || !u_id.isEmpty())
+				{
+							
+					if(gym_hours != 0)
+					{
+						String qry = "insert into uses values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,1);
+						stmt.setInt(3,gym_hours);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{						
+							//update success
+							reply = reply + "Used gym for " + gym_hours+"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(pool_hours != 0)
+					{
+						String qry = "insert into uses values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,2);
+						stmt.setInt(3,pool_hours);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Used pool for " + pool_hours+"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(shuttle != 0)
+					{
+						String qry = "insert into uses values(?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Used pool for " + pool_hours+"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(shuttle == 0 && gym_hours == 0 && pool_hours == 0)
+					{
+						reply = "Nothing updated";
+					}
+				}
+				else
+				{
+					reply = "Please enter ur User ID";
+				}
+				msg.setText(reply);
+				reply =""; //clearing for the next iteration of the work (being double sure)			
+			}
+		});
 		btnSubmit.setBounds(242, 222, 117, 39);
 		contentPane.add(btnSubmit);
 		
@@ -63,19 +158,22 @@ public class facilities extends JFrame {
 		contentPane.add(lblHours);
 		
 		id1 = new JTextField();
+		id1.setText("0");
 		id1.setBounds(133, 82, 41, 26);
 		contentPane.add(id1);
 		id1.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(133, 130, 41, 24);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		id2 = new JTextField();
+		id2.setText("0");
+		id2.setBounds(133, 130, 41, 24);
+		contentPane.add(id2);
+		id2.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(133, 174, 41, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		id3 = new JTextField();
+		id3.setText("0");
+		id3.setBounds(133, 174, 41, 26);
+		contentPane.add(id3);
+		id3.setColumns(10);
 		
 		JLabel lblGym = new JLabel("Gym");
 		lblGym.setBounds(22, 87, 61, 16);
@@ -97,6 +195,8 @@ public class facilities extends JFrame {
 		uid.setColumns(10);
 		uid.setBounds(327, 46, 80, 26);
 		contentPane.add(uid);
+		
+		
 	}
 
 }

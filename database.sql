@@ -32,15 +32,13 @@ create table room(
 create table facilities(
 	id int(2) not null primary key,
 	name varchar(10) not null,
-	cost int(3) not null,
-	hours int(1) not null
+	cost int(3) not null
 );
 
 create table room_service(
 	id int(2) not null primary key,
 	name varchar(10) not null ,
-	cost int(3) not null,
-	quantity int(1) not null
+	cost int(3) not null
 );
 
 create table bill(
@@ -61,16 +59,20 @@ create table books(
 	primary key(u_id,room_no)
 );	
 
+-- for facilities
 create table uses(
 	u_id int(3) references user ,
 	f_id int(2) references facilities ,
+	hours int(1) not null,
 	primary key(u_id,f_id)
 
 );
 
+-- for room_serviceu
 create table orders(
 	u_id int(3) references user,
 	r_id int(2) references room_service,
+	quantity int(1) not null,
 	primary key(u_id,r_id)
 );
 

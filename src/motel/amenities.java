@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class amenities extends JFrame {
 
@@ -48,10 +50,22 @@ public class amenities extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnFacilities = new JButton("Facilities");
+		btnFacilities.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//redirect to facilities jframe
+				dispose();
+			}
+		});
 		btnFacilities.setBounds(45, 96, 117, 53);
 		contentPane.add(btnFacilities);
 		
 		JButton btnRoomService = new JButton("Room Service");
+		btnRoomService.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//redirect to room service jframe
+				dispose();
+			}
+		});
 		btnRoomService.setBounds(281, 96, 117, 53);
 		contentPane.add(btnRoomService);
 	}

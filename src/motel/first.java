@@ -81,8 +81,8 @@ public class first extends JFrame {
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String pswd = pass.toString();
-				String unm = uname.toString();
+				String pswd = pass.getText();
+				String unm = uname.getText();
 				
 				if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
 				{
