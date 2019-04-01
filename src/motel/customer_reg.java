@@ -127,7 +127,8 @@ public class customer_reg extends JFrame {
 						String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
 						ResultSet rs =  stmt.executeQuery(qry1);
 
-						System.out.println("User ID: " + id);
+						return_id.setText("User ID: " + id);
+
 					}
 					else
 					{
@@ -147,11 +148,6 @@ public class customer_reg extends JFrame {
 		});
 		btnSubmit.setBounds(89, 243, 117, 29);
 		contentPane.add(btnSubmit);
-		
-		lblNewLabel = new JLabel("User Details");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(184, 6, 95, 16);
-		contentPane.add(lblNewLabel);
 		
 		return_id = new JLabel("");
 		return_id.setHorizontalAlignment(SwingConstants.CENTER);
