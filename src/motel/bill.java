@@ -44,7 +44,10 @@ public class bill extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
+		PreparedStatement stmt;
+		ResultSet rs;
+
 		JLabel lblBill = new JLabel("Bill");
 		lblBill.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBill.setBounds(197, 6, 61, 16);
@@ -63,6 +66,37 @@ public class bill extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//submit
+			String us_id = uid.getText();
+
+			int user_id = Integer.parseInt(us_id);
+
+			String replay = "";
+
+			if(us_id != null || !us_id.isEmpty())
+			{
+
+				String qry = "select id, discount, price from bill where u_id = user_id ";
+				rs = stmt.executeQuery();  
+
+				while(rs.next())
+				{
+					int b = rs.getInt(1);
+					int d = rs.getInt(2);
+					int p = rs.getInt(3);
+					
+					bid.setText(b);
+					discount.setText(d);
+					amount.setText(p);
+
+					int pricedue = p - ((p*d)/100);
+					price.setText(pricedue);
+				}  
+
+			}
+			else
+			{
+				reply = "Please enter ur User ID";
+			}
 			}
 		});
 		btnSubmit.setBounds(245, 50, 117, 29);
@@ -112,7 +146,8 @@ public class bill extends JFrame {
 		JButton button = new JButton("<- BACK");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//back
+				//back 
+				dispose();
 			}
 		});
 		button.setBounds(4, 6, 83, 29);
