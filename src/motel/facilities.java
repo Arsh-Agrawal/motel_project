@@ -197,6 +197,10 @@ public class facilities extends JFrame {
 		uid.setBounds(327, 46, 80, 26);
 		contentPane.add(uid);
 		
+		JButton button = new JButton("<- BACK");
+		button.setBounds(6, 6, 83, 29);
+		contentPane.add(button);
+		
 		
 	}
 

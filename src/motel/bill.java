@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class bill extends JFrame {
 
@@ -58,6 +60,11 @@ public class bill extends JFrame {
 		uid.setColumns(10);
 		
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//submit
+			}
+		});
 		btnSubmit.setBounds(245, 50, 117, 29);
 		contentPane.add(btnSubmit);
 		
@@ -92,6 +99,24 @@ public class bill extends JFrame {
 		JLabel amount = new JLabel("");
 		amount.setBounds(103, 150, 61, 16);
 		contentPane.add(amount);
+		
+		JButton btnNewButton = new JButton("Pay");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//pay
+			}
+		});
+		btnNewButton.setBounds(299, 229, 117, 29);
+		contentPane.add(btnNewButton);
+		
+		JButton button = new JButton("<- BACK");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//back
+			}
+		});
+		button.setBounds(4, 6, 83, 29);
+		contentPane.add(button);
 	}
 
 }

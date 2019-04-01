@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 
 public class booking extends JFrame {
 
@@ -73,18 +74,6 @@ public class booking extends JFrame {
 		contentPane.add(chkout);
 		chkout.setColumns(10);
 		
-		JCheckBox chckbxSingle = new JCheckBox("Single");
-		chckbxSingle.setBounds(105, 126, 128, 23);
-		contentPane.add(chckbxSingle);
-		
-		JCheckBox chckbxDouble = new JCheckBox("Double");
-		chckbxDouble.setBounds(105, 158, 128, 23);
-		contentPane.add(chckbxDouble);
-		
-		JCheckBox chckbxDeluxe = new JCheckBox("Deluxe");
-		chckbxDeluxe.setBounds(105, 193, 128, 23);
-		contentPane.add(chckbxDeluxe);
-		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.setBounds(105, 228, 117, 29);
 		contentPane.add(btnSubmit);
@@ -102,5 +91,17 @@ public class booking extends JFrame {
 		uid.setBounds(321, 38, 80, 26);
 		contentPane.add(uid);
 		uid.setColumns(10);
+		
+		JRadioButton rdbtnSingle = new JRadioButton("Single");
+		rdbtnSingle.setBounds(105, 130, 141, 23);
+		contentPane.add(rdbtnSingle);
+		
+		JRadioButton rdbtnDouble = new JRadioButton("Double");
+		rdbtnDouble.setBounds(105, 165, 141, 23);
+		contentPane.add(rdbtnDouble);
+		
+		JRadioButton rdbtnDeluxe = new JRadioButton("Deluxe");
+		rdbtnDeluxe.setBounds(105, 200, 141, 23);
+		contentPane.add(rdbtnDeluxe);
 	}
 }

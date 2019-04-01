@@ -112,12 +112,12 @@ public class room_service extends JFrame {
 		contentPane.add(label);
 		
 		JLabel label_1 = new JLabel("User ID:");
-		label_1.setBounds(30, 51, 68, 16);
+		label_1.setBounds(30, 74, 68, 16);
 		contentPane.add(label_1);
 		
 		uid = new JTextField();
 		uid.setColumns(10);
-		uid.setBounds(121, 46, 80, 26);
+		uid.setBounds(121, 69, 80, 26);
 		contentPane.add(uid);
 		
 		JButton btnNewButton = new JButton("Submit");
@@ -138,142 +138,155 @@ public class room_service extends JFrame {
 				int qt5 = Integer.parseInt(text5);
 				int user_id = Integer.parseInt(text6);
 				
-				String reply = "";
-				
-				if(text6 != null && !text6.isEmpty())
-				{
-					if(qt1 != 0)
-					{
-						String qry = "insert into orders values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,1);
-						stmt.setInt(3,qt1);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{						
-							//update success
-							reply = reply + "Fries ->" + qt1 +"\n";
-						}
-						else
-						{
-							reply = "database connection error";
-						}
-					}
-					if(qt2 != 0)
-					{
-						String qry = "insert into orders values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,2);
-						stmt.setInt(3,qt2);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Pav Bhaji ->" + qt2 +"\n";
-						}
-						else
-						{
-							reply = "database connection error";
-						}
-					}
-					if(qt3 != 0)
-					{
-						String qry = "insert into orders values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,3);
-						stmt.setInt(3,qt3);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Pizza ->" + qt3 +"\n";
-						}
-						else
-						{
-							reply= "databse connection error";
-						}
-					}
-					if(qt4 != 0)
-					{
-						String qry = "insert into orders values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,3);
-						stmt.setInt(3,qt4);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Pasta ->" + qt4 +"\n";
-						}
-						else
-						{
-							reply= "databse connection error";
-						}
-					}
-					if(qt5 != 0)
-					{
-						String qry = "insert into orders values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,3);
-						stmt.setInt(3,qt5);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Extra Bed ->" + qt5 +"\n";
-						}
-						else
-						{
-							reply= "databse connection error";
-						}
-					}
-					if( qt1 == 0 && qt2 == 0 && qt3 == 0 && qt4 == 0 && qt5 == 0 )
-					{
-						reply = "Nothing updated";
-					}
-				}
-				else
-				{
-					reply = "Please enter ur User ID";
-				}
-				
-				// need to create a reply jlabel variable name msg 
-				msg.setText(reply);
-				reply =""; //clearing for the next iteration of the work (being double sure)	
+//				String reply = "";
+//				
+//				if(text6 != null && !text6.isEmpty())
+//				{
+//					if(qt1 != 0)
+//					{
+//						String qry = "insert into orders values(?,?,?)";
+//						PreparedStatement stmt = con.prepareStatement(qry);
+//						stmt.setInt(1,user_id);
+//						stmt.setInt(2,1);
+//						stmt.setInt(3,qt1);
+//						
+//						int i = stmt.executeUpdate();
+//						if(i!= 0)
+//						{						
+//							//update success
+//							reply = reply + "Fries ->" + qt1 +"\n";
+//						}
+//						else
+//						{
+//							reply = "database connection error";
+//						}
+//					}
+//					if(qt2 != 0)
+//					{
+//						String qry = "insert into orders values(?,?,?)";
+//						PreparedStatement stmt = con.prepareStatement(qry);
+//						stmt.setInt(1,user_id);
+//						stmt.setInt(2,2);
+//						stmt.setInt(3,qt2);
+//						
+//						int i = stmt.executeUpdate();
+//						if(i!= 0)
+//						{
+//							//update success
+//							reply = reply + "Pav Bhaji ->" + qt2 +"\n";
+//						}
+//						else
+//						{
+//							reply = "database connection error";
+//						}
+//					}
+//					if(qt3 != 0)
+//					{
+//						String qry = "insert into orders values(?,?,?)";
+//						PreparedStatement stmt = con.prepareStatement(qry);
+//						stmt.setInt(1,user_id);
+//						stmt.setInt(2,3);
+//						stmt.setInt(3,qt3);
+//						
+//						int i = stmt.executeUpdate();
+//						if(i!= 0)
+//						{
+//							//update success
+//							reply = reply + "Pizza ->" + qt3 +"\n";
+//						}
+//						else
+//						{
+//							reply= "databse connection error";
+//						}
+//					}
+//					if(qt4 != 0)
+//					{
+//						String qry = "insert into orders values(?,?,?)";
+//						PreparedStatement stmt = con.prepareStatement(qry);
+//						stmt.setInt(1,user_id);
+//						stmt.setInt(2,3);
+//						stmt.setInt(3,qt4);
+//						
+//						int i = stmt.executeUpdate();
+//						if(i!= 0)
+//						{
+//							//update success
+//							reply = reply + "Pasta ->" + qt4 +"\n";
+//						}
+//						else
+//						{
+//							reply= "databse connection error";
+//						}
+//					}
+//					if(qt5 != 0)
+//					{
+//						String qry = "insert into orders values(?,?,?)";
+//						PreparedStatement stmt = con.prepareStatement(qry);
+//						stmt.setInt(1,user_id);
+//						stmt.setInt(2,3);
+//						stmt.setInt(3,qt5);
+//						
+//						int i = stmt.executeUpdate();
+//						if(i!= 0)
+//						{
+//							//update success
+//							reply = reply + "Extra Bed ->" + qt5 +"\n";
+//						}
+//						else
+//						{
+//							reply= "databse connection error";
+//						}
+//					}
+//					if( qt1 == 0 && qt2 == 0 && qt3 == 0 && qt4 == 0 && qt5 == 0 )
+//					{
+//						reply = "Nothing updated";
+//					}
+//				}
+//				else
+//				{
+//					reply = "Please enter ur User ID";
+//				}
+//				
+//				// need to create a reply jlabel variable name msg 
+//				msg.setText(reply);
+//				reply =""; //clearing for the next iteration of the work (being double sure)	
 				
 				
 			}
 		});
-		btnNewButton.setBounds(270, 226, 117, 26);
+		btnNewButton.setBounds(279, 233, 117, 26);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblExtraBed = new JLabel("Extra Bed");
-		lblExtraBed.setBounds(243, 125, 83, 16);
+		lblExtraBed.setBounds(243, 79, 83, 16);
 		contentPane.add(lblExtraBed);
 		
 		id5 = new JTextField();
 		id5.setText("0");
 		id5.setColumns(10);
-		id5.setBounds(345, 120, 66, 26);
+		id5.setBounds(340, 74, 66, 26);
 		contentPane.add(id5);
 		
 		JLabel lblRoomItems = new JLabel("Room Items:");
-		lblRoomItems.setBounds(243, 97, 83, 16);
+		lblRoomItems.setBounds(243, 51, 83, 16);
 		contentPane.add(lblRoomItems);
 		
 		JLabel label_2 = new JLabel("Quantity");
-		label_2.setBounds(345, 97, 61, 16);
+		label_2.setBounds(345, 51, 61, 16);
 		contentPane.add(label_2);
+		
+		JLabel msg = new JLabel("");
+		msg.setBounds(243, 107, 178, 118);
+		contentPane.add(msg);
+		
+		JButton back = new JButton("<- BACK");
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//back
+			}
+		});
+		back.setBounds(8, 6, 83, 29);
+		contentPane.add(back);
 	}
 
 }
