@@ -71,11 +71,6 @@ public class customer_reg extends JFrame {
 		lblPhone.setBounds(6, 189, 80, 16);
 		contentPane.add(lblPhone);
 		
-		user_id = new JTextField();
-		user_id.setBounds(89, 34, 130, 26);
-		contentPane.add(user_id);
-		user_id.setColumns(10);
-		
 		first_name = new JTextField();
 		first_name.setBounds(89, 73, 130, 26);
 		contentPane.add(first_name);
@@ -95,11 +90,59 @@ public class customer_reg extends JFrame {
 		phone.setBounds(89, 184, 130, 26);
 		contentPane.add(phone);
 		phone.setColumns(10);
+
+		JLabel msg = new JLabel("");
+		msg.setHorizontalAlignment(SwingConstants.CENTER);
+		msg.setBounds(263, 134, 144, 66);
+		contentPane.add(msg);
+		
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
+				String f_name = first_name.getText();
+				String l_name = last_name.getText();
+				String addr = address.getText();
+				String phn = phone.getText();
+
+				int ph = Integer.parseInt(phn);
+
+				String reply = "";
+
+				if(((f_name != null || !f_name.isEmpty()) && (l_name != null || !l_name.isEmpty()) && (addr != null || !addr.isEmpty()) && (phn != null || !phn.isEmpty()))
+				{
+					String qry = "insert into user values(?, ?, ?, ?)"
+					PreparedStatement stmt = con.prepareStatement(qry);
+					stmt.setString(1,f_name);
+					stmt.setString(2,l_name);
+					stmt.setString(3,addr);
+					stmt.setInt(4, ph);
+
+					int i = stmt.executeUpdate();
+					if(i != 0)
+					{
+						reply = reply + "Updated records.";
+
+						String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
+						ResultSet rs =  stmt.executeQuery(qry1);
+
+						System.out.println("User ID: " + id);
+					}
+					else
+					{
+						reply = "Database connection error.";
+					}
+
+					rs.close();
+					stmt.close();
+				}
+				else
+				{
+					reply = "Please enter details for all fields.";
+				}
+         		msg.setText(reply);				
+				reply = "";			
 			}
 		});
 		btnSubmit.setBounds(89, 243, 117, 29);
