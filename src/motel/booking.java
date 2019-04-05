@@ -132,6 +132,7 @@ public class booking extends JFrame {
 					{
 						msg = "not a date fromat";
 						return_msg.setText(msg);
+						//return back
 					}
 					
 					//get room type selected (radio button)
@@ -153,6 +154,7 @@ public class booking extends JFrame {
 						room_type = 0;
 						msg = "Please choose type of room";
 						return_msg.setText(msg);
+						//return
 					}
 					
 					String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
@@ -181,16 +183,31 @@ public class booking extends JFrame {
 						int room_no = rs.getInt("room_no");
 						int floor = rs.getInt("floor");
 						
+						//inserting into the table books
 						qry = "insert into books values (?,?,?,?)";
 						stmt = con.prepareStatement(qry);
 						stmt.setInt(1,uid);
 						stmt.setInt(2, room_type);
 						stmt.setDate(3, check_in);
 						stmt.setDate(4, check_out);
+						int check1 = stmt.executeUpdate();
 						
+						//updating the table
+						qry = "update room set status = 1 from room where room_no = ?";
+						stmt = con.prepareStatement(qry);
+						stmt.setInt(1,room_type);
+						int check2 = stmt.executeUpdate();
 						
-						rs = stmt.executeQuery();
-//						String msg = "";
+						if(check1 != 0 && check2 != 0)
+						{
+							//everything success
+							msg = "Your room number is " + room_no + " on floor " + floor; 
+						}
+						else
+						{
+							msg = "Database connection error...backend error";
+						}
+						return_msg.setText(msg);
 						
 						
 					}

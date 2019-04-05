@@ -63,6 +63,22 @@ public class bill extends JFrame {
 		contentPane.add(uid);
 		uid.setColumns(10);
 		
+		JLabel bid = new JLabel("");
+		bid.setBounds(103, 110, 61, 16);
+		contentPane.add(bid);
+		
+		JLabel discount = new JLabel("");
+		discount.setBounds(103, 188, 61, 16);
+		contentPane.add(discount);
+		
+		JLabel amount = new JLabel("");
+		amount.setBounds(103, 150, 61, 16);
+		contentPane.add(amount);
+		
+		JLabel price = new JLabel("");
+		price.setBounds(103, 234, 61, 16);
+		contentPane.add(price);
+		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,34 +95,31 @@ public class bill extends JFrame {
 				String qry = "select id, discount, price from bill where u_id = user_id ";
 				rs = stmt.executeQuery(qry);  
 
-				while(rs.next())
-				{
-					int b = rs.getInt(1);
-					int d = rs.getInt(2);
-					int p = rs.getInt(3);
+				int b = rs.getInt(1);
+				int d = rs.getInt(2);
+				int p = rs.getInt(3);
 					
-					String strb = Integer.toString(b);
-					String strd = Integer.toString(d);
-					String strp = Integer.toString(p);
+				String strb = Integer.toString(b);
+				String strd = Integer.toString(d);
+				String strp = Integer.toString(p);
 
-					bid.setText(strb);
-					discount.setText(strd);
-					amount.setText(strp);
+				bid.setText(strb);
+				discount.setText(strd);
+				amount.setText(strp);
 
-					int pricedue = p - ((p*d)/100);
+				int pricedue = p - ((p*d)/100);
 
-					String strpricedue = Integer.toString(pricedue);
+				String strpricedue = Integer.toString(pricedue);
 					
-					price.setText(strpricedue);
-				}  
+				price.setText(strpricedue);
 
 			}
 			else
 			{
 				reply = "Please enter ur User ID";
 			}
-			}
-		});
+			
+		}});
 		btnSubmit.setBounds(245, 50, 117, 29);
 		contentPane.add(btnSubmit);
 		
@@ -121,26 +134,12 @@ public class bill extends JFrame {
 		JLabel lblPricedue = new JLabel("Price Due:");
 		lblPricedue.setBounds(18, 234, 69, 16);
 		contentPane.add(lblPricedue);
-		
-		JLabel bid = new JLabel("");
-		bid.setBounds(103, 110, 61, 16);
-		contentPane.add(bid);
-		
-		JLabel discount = new JLabel("");
-		discount.setBounds(103, 188, 61, 16);
-		contentPane.add(discount);
-		
-		JLabel price = new JLabel("");
-		price.setBounds(103, 234, 61, 16);
-		contentPane.add(price);
-		
+				
 		JLabel lblprice = new JLabel("Price:");
 		lblprice.setBounds(18, 150, 61, 16);
 		contentPane.add(lblprice);
 		
-		JLabel amount = new JLabel("");
-		amount.setBounds(103, 150, 61, 16);
-		contentPane.add(amount);
+		
 		
 		JButton btnNewButton = new JButton("Pay");
 		btnNewButton.addActionListener(new ActionListener() {
