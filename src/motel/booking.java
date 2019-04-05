@@ -111,12 +111,14 @@ public class booking extends JFrame {
 				String checkin = chckin.getText();
 				String checkout = chkout.getText();
 				String user_id = userid.getText();
+				String msg = "";
 				
 				if(( userid != null || !user_id.isEmpty()) && (checkin != null || !checkin.isEmpty()) && (chkout != null || !checkout.isEmpty()))
 				{
 					int uid = Integer.parseInt(user_id); 
 					java.sql.Date chin = new java.sql.Date();
 					java.sql.Date chout = new java.sql.Date();
+					
 					SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
 					try 
 					{

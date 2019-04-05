@@ -54,6 +54,7 @@ public class amenities extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//redirect to facilities jframe
 				dispose();
+				new facilities();
 			}
 		});
 		btnFacilities.setBounds(50, 68, 117, 53);
@@ -64,6 +65,7 @@ public class amenities extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//redirect to room service jframe
 				dispose();
+				new room_service();
 			}
 		});
 		btnRoomService.setBounds(274, 68, 117, 53);
@@ -73,6 +75,7 @@ public class amenities extends JFrame {
 		bill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				new bill();
 				//redirect to bill.java
 			}
 		});
