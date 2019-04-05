@@ -111,9 +111,9 @@ public class customer_reg extends JFrame {
 
 				String reply = "";
 
-				if(((f_name != null || !f_name.isEmpty()) && (l_name != null || !l_name.isEmpty()) && (addr != null || !addr.isEmpty()) && (phn != null || !phn.isEmpty()))
+				if((f_name != null || !f_name.isEmpty()) && (l_name != null || !l_name.isEmpty()) && (addr != null || !addr.isEmpty()) && (phn != null || !phn.isEmpty()))
 				{
-					String qry = "insert into user values(?, ?, ?, ?)"
+					String qry = "insert into user values(?, ?, ?, ?)";
 					PreparedStatement stmt = con.prepareStatement(qry);
 					stmt.setString(1,f_name);
 					stmt.setString(2,l_name);

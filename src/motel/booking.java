@@ -117,10 +117,12 @@ public class booking extends JFrame {
 				if(( userid != null || !user_id.isEmpty()) && (checkin != null || !checkin.isEmpty()) && (chkout != null || !checkout.isEmpty()))
 				{
 					int uid = Integer.parseInt(user_id); 
-					java.sql.Date chin = new java.sql.Date();
-					java.sql.Date chout = new java.sql.Date();
+					java.util.Date chin = new java.util.Date();
+					java.util.Date chout = new java.util.Date();
 					
 					SimpleDateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+					
+					//checking if the input is valid and can be changed to date format
 					try 
 					{
 						chin = format.parse(checkin);
@@ -128,12 +130,12 @@ public class booking extends JFrame {
 					}
 					catch(Exception error)
 					{
-						String msg = "not a date fromat";
+						msg = "not a date fromat";
 						return_msg.setText(msg);
 					}
 					
+					//get room type selected (radio button)
 					int room_type;
-					
 					if(rb1.isSelected())
 					{
 						room_type = 1;
@@ -149,7 +151,8 @@ public class booking extends JFrame {
 					else
 					{
 						room_type = 0;
-						return_msg.setText("Please choose type of room");
+						msg = "Please choose type of room";
+						return_msg.setText(msg);
 					}
 					
 					String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
@@ -165,6 +168,9 @@ public class booking extends JFrame {
 					}
 					else
 					{
+						java.sql.Date check_in = new java.sql.Date( chin.getTime() );
+						java.sql.Date check_out = new java.sql.Date( chout.getTime() );
+						
 						qry = "Select room_no, floor from room where status = 0 and type_id = ?";
 						stmt = con.prepareStatement(qry);
 						stmt.setInt(1,room_type);
@@ -179,7 +185,9 @@ public class booking extends JFrame {
 						stmt = con.prepareStatement(qry);
 						stmt.setInt(1,uid);
 						stmt.setInt(2, room_type);
-						stmt.setDate(3, chin);
+						stmt.setDate(3, check_in);
+						stmt.setDate(4, check_out);
+						
 						
 						rs = stmt.executeQuery();
 //						String msg = "";
