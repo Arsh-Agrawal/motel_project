@@ -85,12 +85,19 @@ public class bill extends JFrame {
 					int d = rs.getInt(2);
 					int p = rs.getInt(3);
 					
-					bid.setText(b);
-					discount.setText(d);
-					amount.setText(p);
+					String strb = Integer.toString(b);
+					String strd = Integer.toString(d);
+					String strp = Integer.toString(p);
+
+					bid.setText(strb);
+					discount.setText(strd);
+					amount.setText(strp);
 
 					int pricedue = p - ((p*d)/100);
-					price.setText(pricedue);
+
+					String strpricedue = Integer.toString(pricedue);
+					
+					price.setText(strpricedue);
 				}  
 
 			}
