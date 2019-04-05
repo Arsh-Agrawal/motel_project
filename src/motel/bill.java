@@ -76,7 +76,7 @@ public class bill extends JFrame {
 			{
 
 				String qry = "select id, discount, price from bill where u_id = user_id ";
-				rs = stmt.executeQuery();  
+				rs = stmt.executeQuery(qry);  
 
 				while(rs.next())
 				{
@@ -137,7 +137,13 @@ public class bill extends JFrame {
 		JButton btnNewButton = new JButton("Pay");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//pay
+				//pay
+				String qry1 = "update room set status = 0 from room, books where u_id = user_id and books.room_no = room.room_no";
+				rs = stmt.executeQuery(qry1); 
+
+				String qry2 = "delete from books where u_id = user_id";
+				rs = stmt.executeQuery(qry2); 
+
 			}
 		});
 		btnNewButton.setBounds(299, 229, 117, 29);
