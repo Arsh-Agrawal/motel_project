@@ -198,6 +198,12 @@ public class facilities extends JFrame {
 		contentPane.add(uid);
 		
 		JButton button = new JButton("<- BACK");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				//open amenities.java jframe
+			}
+		});
 		button.setBounds(6, 6, 83, 29);
 		contentPane.add(button);
 		

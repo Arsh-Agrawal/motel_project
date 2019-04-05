@@ -56,7 +56,7 @@ public class amenities extends JFrame {
 				dispose();
 			}
 		});
-		btnFacilities.setBounds(45, 96, 117, 53);
+		btnFacilities.setBounds(50, 68, 117, 53);
 		contentPane.add(btnFacilities);
 		
 		JButton btnRoomService = new JButton("Room Service");
@@ -66,8 +66,18 @@ public class amenities extends JFrame {
 				dispose();
 			}
 		});
-		btnRoomService.setBounds(281, 96, 117, 53);
+		btnRoomService.setBounds(274, 68, 117, 53);
 		contentPane.add(btnRoomService);
+		
+		JButton bill = new JButton("Check Bill");
+		bill.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				//redirect to bill.java
+			}
+		});
+		bill.setBounds(164, 173, 117, 53);
+		contentPane.add(bill);
 	}
 
 }

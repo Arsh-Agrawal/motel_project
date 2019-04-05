@@ -138,118 +138,118 @@ public class room_service extends JFrame {
 				int qt5 = Integer.parseInt(text5);
 				int user_id = Integer.parseInt(text6);
 				
-//				String reply = "";
-//				
-//				if(text6 != null && !text6.isEmpty())
-//				{
-//					if(qt1 != 0)
-//					{
-//						String qry = "insert into orders values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,1);
-//						stmt.setInt(3,qt1);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{						
-//							//update success
-//							reply = reply + "Fries ->" + qt1 +"\n";
-//						}
-//						else
-//						{
-//							reply = "database connection error";
-//						}
-//					}
-//					if(qt2 != 0)
-//					{
-//						String qry = "insert into orders values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,2);
-//						stmt.setInt(3,qt2);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Pav Bhaji ->" + qt2 +"\n";
-//						}
-//						else
-//						{
-//							reply = "database connection error";
-//						}
-//					}
-//					if(qt3 != 0)
-//					{
-//						String qry = "insert into orders values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,3);
-//						stmt.setInt(3,qt3);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Pizza ->" + qt3 +"\n";
-//						}
-//						else
-//						{
-//							reply= "databse connection error";
-//						}
-//					}
-//					if(qt4 != 0)
-//					{
-//						String qry = "insert into orders values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,3);
-//						stmt.setInt(3,qt4);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Pasta ->" + qt4 +"\n";
-//						}
-//						else
-//						{
-//							reply= "databse connection error";
-//						}
-//					}
-//					if(qt5 != 0)
-//					{
-//						String qry = "insert into orders values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,3);
-//						stmt.setInt(3,qt5);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Extra Bed ->" + qt5 +"\n";
-//						}
-//						else
-//						{
-//							reply= "databse connection error";
-//						}
-//					}
-//					if( qt1 == 0 && qt2 == 0 && qt3 == 0 && qt4 == 0 && qt5 == 0 )
-//					{
-//						reply = "Nothing updated";
-//					}
-//				}
-//				else
-//				{
-//					reply = "Please enter ur User ID";
-//				}
-//				
-//				// need to create a reply jlabel variable name msg 
-//				msg.setText(reply);
-//				reply =""; //clearing for the next iteration of the work (being double sure)	
+				String reply = "";
+				
+				if(text6 != null && !text6.isEmpty())
+				{
+					if(qt1 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,1);
+						stmt.setInt(3,qt1);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{						
+							//update success
+							reply = reply + "Fries ->" + qt1 +"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(qt2 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,2);
+						stmt.setInt(3,qt2);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pav Bhaji ->" + qt2 +"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(qt3 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt3);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pizza ->" + qt3 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(qt4 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt4);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Pasta ->" + qt4 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(qt5 != 0)
+					{
+						String qry = "insert into orders values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,qt5);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Extra Bed ->" + qt5 +"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if( qt1 == 0 && qt2 == 0 && qt3 == 0 && qt4 == 0 && qt5 == 0 )
+					{
+						reply = "Nothing updated";
+					}
+				}
+				else
+				{
+					reply = "Please enter ur User ID";
+				}
+				
+				// need to create a reply jlabel variable name msg 
+				msg.setText(reply);
+				reply =""; //clearing for the next iteration of the work (being double sure)	
 				
 				
 			}
@@ -282,7 +282,8 @@ public class room_service extends JFrame {
 		JButton back = new JButton("<- BACK");
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			//back
+				dispose();
+				//open amenities jframe
 			}
 		});
 		back.setBounds(8, 6, 83, 29);
