@@ -84,3 +84,72 @@ create table admin(
 insert into admin values("testing", "test1");
 insert into admin values("test2", "test2");
 
+insert into type values("Single", "1", "2000");
+insert into type values("Double", "2", "4000");
+insert into type values("Deluxe", "2", "5000");
+
+
+insert into room values("0", "1");
+insert into room values("0", "1");
+insert into room values("0", "1");
+insert into room values("0", "1");
+insert into room values("0", "1");
+insert into room values("0", "2");
+insert into room values("0", "2");
+insert into room values("0", "2");
+insert into room values("0", "2");
+insert into room values("0", "2");
+insert into room values("0", "3");
+insert into room values("0", "3");
+insert into room values("0", "3");
+insert into room values("0", "3");
+insert into room values("0", "3");
+insert into room values("1", "1");
+insert into room values("1", "1");
+insert into room values("1", "1");
+insert into room values("1", "1");
+insert into room values("1", "1");
+insert into room values("1", "2");
+insert into room values("1", "2");
+insert into room values("1", "2");
+insert into room values("1", "2");
+insert into room values("1", "2");
+insert into room values("1", "3");
+insert into room values("1", "3");
+insert into room values("1", "3");
+insert into room values("1", "3");
+insert into room values("1", "3");
+insert into room values("2", "1");
+insert into room values("2", "1");
+insert into room values("2", "1");
+insert into room values("2", "1");
+insert into room values("2", "1");
+insert into room values("2", "2");
+insert into room values("2", "2");
+insert into room values("2", "2");
+insert into room values("2", "2");
+insert into room values("2", "2");
+insert into room values("2", "3");
+insert into room values("2", "3");
+insert into room values("2", "3");
+insert into room values("2", "3");
+insert into room values("2", "3");
+insert into room values("3", "1");
+insert into room values("3", "1");
+insert into room values("3", "1");
+insert into room values("3", "1");
+insert into room values("3", "1");
+insert into room values("3", "2");
+insert into room values("3", "2");
+insert into room values("3", "2");
+insert into room values("3", "2");
+insert into room values("3", "2");
+insert into room values("3", "3");
+insert into room values("3", "3");
+insert into room values("3", "3");
+insert into room values("3", "3");
+insert into room values("3", "3");
+
+
+					
+
