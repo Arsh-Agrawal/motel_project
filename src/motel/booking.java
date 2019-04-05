@@ -85,7 +85,7 @@ public class booking extends JFrame {
 		
 		JLabel return_msg = new JLabel("");
 		return_msg.setHorizontalAlignment(SwingConstants.CENTER);
-		return_msg.setBounds(273, 193, 160, 79);
+		return_msg.setBounds(270, 130, 160, 79);
 		contentPane.add(return_msg);
 		
 		JRadioButton rb1 = new JRadioButton("Single");
@@ -202,6 +202,12 @@ public class booking extends JFrame {
 						{
 							//everything success
 							msg = "Your room number is " + room_no + " on floor " + floor; 
+							
+							//only show when user got his room number
+							JButton proceed = new JButton("Proceed");
+							proceed.setBounds(296, 228, 117, 29);
+							contentPane.add(proceed);
+							//need to add functionality
 						}
 						else
 						{
@@ -228,6 +234,8 @@ public class booking extends JFrame {
 		userid.setBounds(321, 38, 80, 26);
 		contentPane.add(userid);
 		userid.setColumns(10);
+		
+		
 		
 		
 		
