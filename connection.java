@@ -1,20 +1,38 @@
-import java.sql.*;
+package com.java2novice.jdbc;
+ 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+ 
+public class JdbcConnection {
+ 
+    public static void main(String args[]){
+         
+        try 
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
 
-class Connect
-{
-	public static void main(String args[])
-	{
+            Connection con = DriverManager.
+            getConnection("jdbc:oracle:thin:@<hostname>:<port num>:<DB name>"
+                    ,"user","password");
 
-		try
-		{
+            Statement stmt = con.createStatement();
 
-			Class.forproject("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost: ","","")
-		}
+            System.out.println("Created DB Connection....");
+        }
 
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
-	}
+        catch (ClassNotFoundException e) 
+        {
+        
+            e.printStackTrace();
+
+        } 
+
+        catch (SQLException e) 
+        {
+          
+            e.printStackTrace();
+        }
+    }
 }
