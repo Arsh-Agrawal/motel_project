@@ -127,17 +127,24 @@ public class customer_reg extends JFrame {
 
 						String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
 						ResultSet rs =  stmt.executeQuery(qry1);
-
+						int id = rs.getInt("id");
 						return_id.setText("User ID: " + id);
+						
+						JButton btnNewButton = new JButton("New button");
+						btnNewButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								dispose();
+								new booking();
+							}
+						});
+						btnNewButton.setBounds(290, 243, 117, 29);
+						contentPane.add(btnNewButton);
 
 					}
 					else
 					{
 						reply = "Database connection error.";
 					}
-
-					rs.close();
-					stmt.close();
 				}
 				else
 				{
@@ -152,8 +159,10 @@ public class customer_reg extends JFrame {
 		
 		return_id = new JLabel("");
 		return_id.setHorizontalAlignment(SwingConstants.CENTER);
-		return_id.setBounds(218, 224, 226, 40);
+		return_id.setBounds(90, 39, 129, 26);
 		contentPane.add(return_id);
+		
+		
 	}
 
 }

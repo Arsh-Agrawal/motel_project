@@ -63,89 +63,89 @@ public class facilities extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				String ghrs = id1.getText();
-//				String phrs = id2.getText();
-//				String shhrs = id3.getText();
-//				String u_id = uid.getText();
-//				
-//				int gym_hours = Integer.parseInt(ghrs);
-//				int pool_hours = Integer.parseInt(phrs);
-//				int shuttle = Integer.parseInt(shhrs);
-//				int user_id = Integer.parseInt(u_id);
-//				
-//				String reply = "";
-//				
-//				if(u_id != null || !u_id.isEmpty())
-//				{
-//							
-//					if(gym_hours != 0)
-//					{
-//						String qry = "insert into uses values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,1);
-//						stmt.setInt(3,gym_hours);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{						
-//							//update success
-//							reply = reply + "Used gym for " + gym_hours+"\n";
-//						}
-//						else
-//						{
-//							reply = "database connection error";
-//						}
-//					}
-//					if(pool_hours != 0)
-//					{
-//						String qry = "insert into uses values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,2);
-//						stmt.setInt(3,pool_hours);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Used pool for " + pool_hours+"\n";
-//						}
-//						else
-//						{
-//							reply = "database connection error";
-//						}
-//					}
-//					if(shuttle != 0)
-//					{
-//						String qry = "insert into uses values(?,?,?)";
-//						PreparedStatement stmt = con.prepareStatement(qry);
-//						stmt.setInt(1,user_id);
-//						stmt.setInt(2,3);
-//						stmt.setInt(3,shuttle);
-//						
-//						int i = stmt.executeUpdate();
-//						if(i!= 0)
-//						{
-//							//update success
-//							reply = reply + "Used pool for " + pool_hours+"\n";
-//						}
-//						else
-//						{
-//							reply= "databse connection error";
-//						}
-//					}
-//					if(shuttle == 0 && gym_hours == 0 && pool_hours == 0)
-//					{
-//						reply = "Nothing updated";
-//					}
-//				}
-//				else
-//				{
-//					reply = "Please enter ur User ID";
-//				}
-//				msg.setText(reply);
-//				reply =""; //clearing for the next iteration of the work (being double sure)			
+				String ghrs = id1.getText();
+				String phrs = id2.getText();
+				String shhrs = id3.getText();
+				String u_id = uid.getText();
+				
+				int gym_hours = Integer.parseInt(ghrs);
+				int pool_hours = Integer.parseInt(phrs);
+				int shuttle = Integer.parseInt(shhrs);
+				int user_id = Integer.parseInt(u_id);
+				
+				String reply = "";
+				
+				if(u_id != null || !u_id.isEmpty())
+				{
+							
+					if(gym_hours != 0)
+					{
+						String qry = "insert into uses values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,1);
+						stmt.setInt(3,gym_hours);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{						
+							//update success
+							reply = reply + "Used gym for " + gym_hours+"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(pool_hours != 0)
+					{
+						String qry = "insert into uses values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,2);
+						stmt.setInt(3,pool_hours);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Used pool for " + pool_hours+"\n";
+						}
+						else
+						{
+							reply = "database connection error";
+						}
+					}
+					if(shuttle != 0)
+					{
+						String qry = "insert into uses values(?,?,?)";
+						PreparedStatement stmt = con.prepareStatement(qry);
+						stmt.setInt(1,user_id);
+						stmt.setInt(2,3);
+						stmt.setInt(3,shuttle);
+						
+						int i = stmt.executeUpdate();
+						if(i!= 0)
+						{
+							//update success
+							reply = reply + "Used pool for " + pool_hours+"\n";
+						}
+						else
+						{
+							reply= "databse connection error";
+						}
+					}
+					if(shuttle == 0 && gym_hours == 0 && pool_hours == 0)
+					{
+						reply = "Nothing updated";
+					}
+				}
+				else
+				{
+					reply = "Please enter ur User ID";
+				}
+				msg.setText(reply);
+				reply =""; //clearing for the next iteration of the work (being double sure)			
 			}
 		});
 		btnSubmit.setBounds(242, 222, 117, 39);
@@ -202,7 +202,7 @@ public class facilities extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				//open amenities.java jframe
+				new amenities();
 			}
 		});
 		button.setBounds(6, 6, 83, 29);

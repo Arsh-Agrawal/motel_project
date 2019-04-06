@@ -132,7 +132,7 @@ public class booking extends JFrame {
 					{
 						msg = "not a date fromat";
 						return_msg.setText(msg);
-						//return back
+						return;
 					}
 					
 					//get room type selected (radio button)
@@ -154,7 +154,7 @@ public class booking extends JFrame {
 						room_type = 0;
 						msg = "Please choose type of room";
 						return_msg.setText(msg);
-						//return
+						return;
 					}
 					
 					String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
@@ -205,6 +205,12 @@ public class booking extends JFrame {
 							
 							//only show when user got his room number
 							JButton proceed = new JButton("Proceed");
+							proceed.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									dispose();
+									new amenities();
+								}
+							});
 							proceed.setBounds(296, 228, 117, 29);
 							contentPane.add(proceed);
 							//need to add functionality

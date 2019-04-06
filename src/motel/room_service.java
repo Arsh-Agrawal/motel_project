@@ -96,6 +96,10 @@ public class room_service extends JFrame {
 		lblPasta.setBounds(30, 237, 61, 16);
 		contentPane.add(lblPasta);
 		
+		JLabel msg = new JLabel("");
+		msg.setBounds(243, 107, 178, 118);
+		contentPane.add(msg);
+		
 		id3 = new JTextField();
 		id3.setText("0");
 		id3.setBounds(135, 204, 66, 26);
@@ -248,7 +252,6 @@ public class room_service extends JFrame {
 					reply = "Please enter ur User ID";
 				}
 				
-				// need to create a reply jlabel variable name msg 
 				msg.setText(reply);
 				reply =""; //clearing for the next iteration of the work (being double sure)	
 				
@@ -276,15 +279,13 @@ public class room_service extends JFrame {
 		label_2.setBounds(345, 51, 61, 16);
 		contentPane.add(label_2);
 		
-		JLabel msg = new JLabel("");
-		msg.setBounds(243, 107, 178, 118);
-		contentPane.add(msg);
+		
 		
 		JButton back = new JButton("<- BACK");
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				//open amenities jframe
+				new amenities();
 			}
 		});
 		back.setBounds(8, 6, 83, 29);

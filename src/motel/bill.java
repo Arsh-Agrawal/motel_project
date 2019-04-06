@@ -46,9 +46,6 @@ public class bill extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		PreparedStatement stmt;
-		ResultSet rs;
-
 		JLabel lblBill = new JLabel("Bill");
 		lblBill.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBill.setBounds(197, 6, 61, 16);
@@ -87,17 +84,19 @@ public class bill extends JFrame {
 
 			int user_id = Integer.parseInt(us_id);
 
-			String replay = "";
+			String reply = "";
 
 			if(us_id != null || !us_id.isEmpty())
 			{
 
-				String qry = "select id, discount, price from bill where u_id = user_id ";
-				rs = stmt.executeQuery(qry);  
+				String qry = "select id, discount, price from bill where u_id =? ";
+				PreparedStatement stmt = con.prepareStatement(qry);
+				stmt.setInt(1,user_id);
+				ResultSet rs = stmt.executeQuery();  
 
-				int b = rs.getInt(1);
-				int d = rs.getInt(2);
-				int p = rs.getInt(3);
+				int b = rs.getInt("id");
+				int d = rs.getInt("discount");
+				int p = rs.getInt("price");
 					
 				String strb = Integer.toString(b);
 				String strd = Integer.toString(d);
@@ -145,12 +144,27 @@ public class bill extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//pay
-				String qry1 = "update room set status = 0 from room, books where u_id = user_id and books.room_no = room.room_no";
-				rs = stmt.executeQuery(qry1); 
+				String us_id = uid.getText();
 
-				String qry2 = "delete from books where u_id = user_id";
-				rs = stmt.executeQuery(qry2); 
+				int user_id = Integer.parseInt(us_id);
+				
+				if(us_id!= null && !us_id.isEmpty())
+				{
+					String qry1 = "update room set status = 0 from room natural join books where u_id = ?";
+					PreparedStatement stmt = con.prepareStatement(qry1);
+					stmt.setInt(1,user_id);
+					ResultSet rs = stmt.executeQuery();
 
+					String qry2 = "delete from books where u_id = ?";
+					stmt = con.prepareStatement(qry2);
+					stmt.setInt(1,user_id);
+					rs = stmt.executeQuery();
+					
+					dispose();
+					new thankyou();
+
+				}
+				
 			}
 		});
 		btnNewButton.setBounds(299, 229, 117, 29);
