@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.*;
 import java.awt.EventQueue;
 
+import connection.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,12 +32,6 @@ public class first extends JFrame {
 				try {
 					first frame = new first();
 					frame.setVisible(true);
-					try
-					{
-						Class.forName("oracle.jdbc.driver.OracleDriver");
-						Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","oracle");  
-					}
-					catch(Exception e){ System.out.println(e);}  
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,32 +72,38 @@ public class first extends JFrame {
 		contentPane.add(pass);
 		pass.setColumns(10);
 		
+		
+		
 		JButton login = new JButton("Login");
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String pswd = pass.getText();
 				String unm = uname.getText();
+				connect conn = new connect();
 				
-				if((pswd != null || !pswd.isEmpty()) && (unm != null || !unm.isEmpty()))
+				if((pass != null || !pswd.isEmpty()) && (uname != null || !unm.isEmpty()))
 				{
 					String qry = "select count(*) as cnt  where username =? and password = ?";
-					PreparedStatement stmt = con.prepareStatement(qry);
-					stmt.setString(1,unm);
-					stmt.setString(2,pswd);
+					try {
+						PreparedStatement stmt = conn.con.prepareStatement(qry);
+						stmt.setString(1,unm);
+						stmt.setString(2,pswd);
+						
+						ResultSet rs = stmt.executeQuery();
 					
-					ResultSet rs = stmt.executeQuery();
-					
-					int count = rs.getInt("cnt");
-					if(count == 1)
-					{
-						//open the customer_reg frame
-						dispose();
+						int count = rs.getInt("cnt");
+						if(count == 1)
+						{
+							//open the customer_reg frame
+							dispose();
+						}
+						else
+						{
+							err_msg.setText("wrong Username or Password!!");
+						}
 					}
-					else
-					{
-						err_msg.setText("wrong Username or Password!!");
-					}
+					catch(Exception error) {System.out.println(error);}
 				}
 				
 			}

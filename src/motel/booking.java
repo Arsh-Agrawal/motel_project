@@ -1,5 +1,6 @@
 package motel;
 
+import connection.*;
 import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -114,7 +115,7 @@ public class booking extends JFrame {
 				String user_id = userid.getText();
 				String msg = "";
 				
-				if(( userid != null || !user_id.isEmpty()) && (checkin != null || !checkin.isEmpty()) && (chkout != null || !checkout.isEmpty()))
+				if(( userid != null || !user_id.isEmpty()) && (chckin != null || !checkin.isEmpty()) && (chkout != null || !checkout.isEmpty()))
 				{
 					int uid = Integer.parseInt(user_id); 
 					java.util.Date chin = new java.util.Date();
@@ -156,77 +157,82 @@ public class booking extends JFrame {
 						return_msg.setText(msg);
 						return;
 					}
+					//making database connection
+					connect conn = new connect();
 					
-					String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
-					PreparedStatement stmt = con.prepareStatement(qry);
-					stmt.setInt(1,room_type);
-					ResultSet rs = stmt.executeQuery();
-					
-					int count = rs.getInt("count");
-					
-					if(count == 0 )
+					try
 					{
-						return_msg.setText("Sorry, Particular room type is unavailable at the moment");						
-					}
-					else
-					{
-						java.sql.Date check_in = new java.sql.Date( chin.getTime() );
-						java.sql.Date check_out = new java.sql.Date( chout.getTime() );
 						
-						qry = "Select room_no, floor from room where status = 0 and type_id = ?";
-						stmt = con.prepareStatement(qry);
+						
+						String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
+						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setInt(1,room_type);
-						rs = stmt.executeQuery();
+						ResultSet rs = stmt.executeQuery();
 						
-						//retrieving the first row(tuple)
+						int count = rs.getInt("count");
 						
-						int room_no = rs.getInt("room_no");
-						int floor = rs.getInt("floor");
-						
-						//inserting into the table books
-						qry = "insert into books values (?,?,?,?)";
-						stmt = con.prepareStatement(qry);
-						stmt.setInt(1,uid);
-						stmt.setInt(2, room_type);
-						stmt.setDate(3, check_in);
-						stmt.setDate(4, check_out);
-						int check1 = stmt.executeUpdate();
-						
-						//updating the table
-						qry = "update room set status = 1 from room where room_no = ?";
-						stmt = con.prepareStatement(qry);
-						stmt.setInt(1,room_type);
-						int check2 = stmt.executeUpdate();
-						
-						if(check1 != 0 && check2 != 0)
+						if(count == 0 )
 						{
-							//everything success
-							msg = "Your room number is " + room_no + " on floor " + floor; 
-							
-							//only show when user got his room number
-							JButton proceed = new JButton("Proceed");
-							proceed.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									dispose();
-									new amenities();
-								}
-							});
-							proceed.setBounds(296, 228, 117, 29);
-							contentPane.add(proceed);
-							//need to add functionality
+							return_msg.setText("Sorry, Particular room type is unavailable at the moment");						
 						}
 						else
 						{
-							msg = "Database connection error...backend error";
+							java.sql.Date check_in = new java.sql.Date( chin.getTime() );
+							java.sql.Date check_out = new java.sql.Date( chout.getTime() );
+							
+							qry = "Select room_no, floor from room where status = 0 and type_id = ?";
+							stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,room_type);
+							rs = stmt.executeQuery();
+							
+							//retrieving the first row(tuple)
+							
+							int room_no = rs.getInt("room_no");
+							int floor = rs.getInt("floor");
+							
+							//inserting into the table books
+							qry = "insert into books values (?,?,?,?)";
+							stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,uid);
+							stmt.setInt(2, room_type);
+							stmt.setDate(3, check_in);
+							stmt.setDate(4, check_out);
+							int check1 = stmt.executeUpdate();
+							
+							//updating the table
+							qry = "update room set status = 1 from room where room_no = ?";
+							stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,room_type);
+							int check2 = stmt.executeUpdate();
+							
+							if(check1 != 0 && check2 != 0)
+							{
+								//everything success
+								msg = "Your room number is " + room_no + " on floor " + floor; 
+								
+								//only show when user got his room number
+								JButton proceed = new JButton("Proceed");
+								proceed.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										dispose();
+										new amenities();
+									}
+								});
+								proceed.setBounds(296, 228, 117, 29);
+								contentPane.add(proceed);
+								//need to add functionality
+							}
+							else
+							{
+								msg = "Database connection error...backend error";
+							}
+							return_msg.setText(msg);
 						}
-						return_msg.setText(msg);
-						
-						
 					}
-					
+					catch(Exception error) {
+						System.out.print(error);
+					}
 				}
-				
-				
 			}
 		});
 		btnSubmit.setBounds(105, 228, 117, 29);

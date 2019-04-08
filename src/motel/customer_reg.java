@@ -1,5 +1,6 @@
 package motel;
 
+import connection.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.*;
@@ -111,47 +112,57 @@ public class customer_reg extends JFrame {
 
 				String reply = "";
 
-				if((f_name != null || !f_name.isEmpty()) && (l_name != null || !l_name.isEmpty()) && (addr != null || !addr.isEmpty()) && (phn != null || !phn.isEmpty()))
+				//making database connection
+				connect conn = new connect();
+				
+				try
 				{
-					String qry = "insert into user values(?, ?, ?, ?)";
-					PreparedStatement stmt = con.prepareStatement(qry);
-					stmt.setString(1,f_name);
-					stmt.setString(2,l_name);
-					stmt.setString(3,addr);
-					stmt.setInt(4, ph);
-
-					int i = stmt.executeUpdate();
-					if(i != 0)
+					if((first_name != null || !f_name.isEmpty()) && (last_name != null || !l_name.isEmpty()) && (address != null || !addr.isEmpty()) && (phone != null || !phn.isEmpty()))
 					{
-						reply = reply + "Updated records.";
-
-						String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
-						ResultSet rs =  stmt.executeQuery(qry1);
-						int id = rs.getInt("id");
-						return_id.setText("User ID: " + id);
-						
-						JButton btnNewButton = new JButton("New button");
-						btnNewButton.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								dispose();
-								new booking();
-							}
-						});
-						btnNewButton.setBounds(290, 243, 117, 29);
-						contentPane.add(btnNewButton);
-
+						String qry = "insert into user values(?, ?, ?, ?)";
+						PreparedStatement stmt = conn.con.prepareStatement(qry);
+						stmt.setString(1,f_name);
+						stmt.setString(2,l_name);
+						stmt.setString(3,addr);
+						stmt.setInt(4, ph);
+	
+						int i = stmt.executeUpdate();
+						if(i != 0)
+						{
+							reply = reply + "Updated records.";
+	
+							String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
+							ResultSet rs =  stmt.executeQuery(qry1);
+							int id = rs.getInt("id");
+							return_id.setText("User ID: " + id);
+							
+							JButton btnNewButton = new JButton("New button");
+							btnNewButton.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									dispose();
+									new booking();
+								}
+							});
+							btnNewButton.setBounds(290, 243, 117, 29);
+							contentPane.add(btnNewButton);
+	
+						}
+						else
+						{
+							reply = "Database connection error.";
+						}
 					}
 					else
 					{
-						reply = "Database connection error.";
+						reply = "Please enter details for all fields.";
 					}
+	         		msg.setText(reply);				
+					reply = "";
 				}
-				else
+				catch(Exception error)
 				{
-					reply = "Please enter details for all fields.";
+					System.out.print(error);
 				}
-         		msg.setText(reply);				
-				reply = "";			
 			}
 		});
 		btnSubmit.setBounds(89, 243, 117, 29);

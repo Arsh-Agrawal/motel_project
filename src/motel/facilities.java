@@ -3,6 +3,7 @@ package motel;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import connection.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -75,77 +76,88 @@ public class facilities extends JFrame {
 				
 				String reply = "";
 				
-				if(u_id != null || !u_id.isEmpty())
+				//making db connection
+				 connect conn = new connect();
+				 
+				try 
 				{
+					
+					
+					if(uid != null || !u_id.isEmpty())
+					{
+								
+						if(gym_hours != 0)
+						{
+							String qry = "insert into uses values(?,?,?)";
+							PreparedStatement stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,user_id);
+							stmt.setInt(2,1);
+							stmt.setInt(3,gym_hours);
 							
-					if(gym_hours != 0)
-					{
-						String qry = "insert into uses values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,1);
-						stmt.setInt(3,gym_hours);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{						
-							//update success
-							reply = reply + "Used gym for " + gym_hours+"\n";
+							int i = stmt.executeUpdate();
+							if(i!= 0)
+							{						
+								//update success
+								reply = reply + "Used gym for " + gym_hours+"\n";
+							}
+							else
+							{
+								reply = "database connection error";
+							}
 						}
-						else
+						if(pool_hours != 0)
 						{
-							reply = "database connection error";
+							String qry = "insert into uses values(?,?,?)";
+							PreparedStatement stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,user_id);
+							stmt.setInt(2,2);
+							stmt.setInt(3,pool_hours);
+							
+							int i = stmt.executeUpdate();
+							if(i!= 0)
+							{
+								//update success
+								reply = reply + "Used pool for " + pool_hours+"\n";
+							}
+							else
+							{
+								reply = "database connection error";
+							}
+						}
+						if(shuttle != 0)
+						{
+							String qry = "insert into uses values(?,?,?)";
+							PreparedStatement stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1,user_id);
+							stmt.setInt(2,3);
+							stmt.setInt(3,shuttle);
+							
+							int i = stmt.executeUpdate();
+							if(i!= 0)
+							{
+								//update success
+								reply = reply + "Used pool for " + pool_hours+"\n";
+							}
+							else
+							{
+								reply= "databse connection error";
+							}
+						}
+						if(shuttle == 0 && gym_hours == 0 && pool_hours == 0)
+						{
+							reply = "Nothing updated";
 						}
 					}
-					if(pool_hours != 0)
+					else
 					{
-						String qry = "insert into uses values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,2);
-						stmt.setInt(3,pool_hours);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Used pool for " + pool_hours+"\n";
-						}
-						else
-						{
-							reply = "database connection error";
-						}
+						reply = "Please enter ur User ID";
 					}
-					if(shuttle != 0)
-					{
-						String qry = "insert into uses values(?,?,?)";
-						PreparedStatement stmt = con.prepareStatement(qry);
-						stmt.setInt(1,user_id);
-						stmt.setInt(2,3);
-						stmt.setInt(3,shuttle);
-						
-						int i = stmt.executeUpdate();
-						if(i!= 0)
-						{
-							//update success
-							reply = reply + "Used pool for " + pool_hours+"\n";
-						}
-						else
-						{
-							reply= "databse connection error";
-						}
-					}
-					if(shuttle == 0 && gym_hours == 0 && pool_hours == 0)
-					{
-						reply = "Nothing updated";
-					}
+					msg.setText(reply);
+					reply =""; //clearing for the next iteration of the work (being double sure)	
 				}
-				else
-				{
-					reply = "Please enter ur User ID";
+				catch(Exception error) {
+					System.out.print(error);
 				}
-				msg.setText(reply);
-				reply =""; //clearing for the next iteration of the work (being double sure)			
 			}
 		});
 		btnSubmit.setBounds(242, 222, 117, 39);
