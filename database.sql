@@ -57,6 +57,7 @@ create table bill(
 	discount int not null,
 	primary key(id,u_id)
 );
+
 Create sequence bill_id start with 1
 increment by 1;
 

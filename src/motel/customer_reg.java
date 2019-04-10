@@ -119,7 +119,7 @@ public class customer_reg extends JFrame {
 				{
 					if((first_name != null || !f_name.isEmpty()) && (last_name != null || !l_name.isEmpty()) && (address != null || !addr.isEmpty()) && (phone != null || !phn.isEmpty()))
 					{
-						String qry = "insert into user_1 values(?, ?, ?, ?)";
+						String qry = "insert into user_1 values(user_1_id_seq.nextval,?, ?, ?, ?)";
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setString(1,f_name);
 						stmt.setString(2,l_name);
