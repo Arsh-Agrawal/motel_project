@@ -67,16 +67,16 @@ public class bill extends JFrame {
 		uid.setColumns(10);
 		
 		JLabel bid = new JLabel("");
-		bid.setBounds(103, 110, 61, 16);
+		bid.setBounds(197, 88, 61, 16);
 		contentPane.add(bid);
 		
-		JLabel discount = new JLabel("");
-		discount.setBounds(103, 188, 61, 16);
-		contentPane.add(discount);
+		JLabel rservice = new JLabel("");
+		rservice.setBounds(197, 160, 61, 16);
+		contentPane.add(rservice);
 		
-		JLabel amount = new JLabel("");
-		amount.setBounds(103, 150, 61, 16);
-		contentPane.add(amount);
+		JLabel fcost = new JLabel("");
+		fcost.setBounds(186, 132, 61, 16);
+		contentPane.add(fcost);
 		
 		JLabel price = new JLabel("");
 		price.setBounds(103, 234, 61, 16);
@@ -93,80 +93,56 @@ public class bill extends JFrame {
 			
 			//making database connection
 			connect conn = new connect();
-
-			//////////////////////////////////////////////////////
-
-			//updating allprices table with user_id 
-
-			String qry = "update allprices set u_id = user_id";
-			PreparedStatement stmt = conn.con.prepareStatement(qry);
-
-			//all price calculations
-
-			int fac_id;
-			int fac_price;
-			int fac_hours;
-			//int service_price;
-			//int service_number;
-			//int booking_price;
 			
-			while(rs1.next())
-			{
-
-				qry = "select id, cost from facilities, uses where id = f_id";
-				stmt = conn.con.prepareStatement(qry);
-
-				fac_id = rs1.getInt("id");
-				fac_price = rs1.getInt("cost");
-
-				while(rs2.next())
-				{
-					qry = "select hours from uses where u_id = user_id and f_id = fac_id";
-					stmt = conn.con.prepareStatement(qry);
-
-					fac_hours = rs2.getInt("hours");
-
-					fac_price = fac_hours * fac_price;
-
-					qry = "update allprices set facilities_price = facilities_price + fac_price where u_id = user_id";
-					// adding total facilities fees to one tuple.
-					stmt = conn.con.prepareStatement(qry);
-
-				}
-
-			}
-
-			
-			//////////////////////////////////////////////////////
-			
-
 			try
 			{
 				if(uid != null || !us_id.isEmpty())
 				{
 	
-					String qry = "select id, discount, price from bill where u_id =? ";
+					//query for facilities cost
+					String qry = "select f_id,hours from uses where u_id = ?";
 					PreparedStatement stmt = conn.con.prepareStatement(qry);
-					stmt.setInt(1,user_id);
-					ResultSet rs = stmt.executeQuery();  
-	
-					int b = rs.getInt("id");
-					int d = rs.getInt("discount");
-					int p = rs.getInt("price");
+					stmt.setInt(1, user_id);
+					ResultSet rs1 = stmt.executeQuery();
+					
+					int hours=0, f_id=0, cost_of_fac = 0, cost=0;
+					while(rs1.next())
+					{
+						f_id = rs1.getInt("f_id");
 						
-					String strb = Integer.toString(b);
-					String strd = Integer.toString(d);
-					String strp = Integer.toString(p);
-	
-					bid.setText(strb);
-					discount.setText(strd);
-					amount.setText(strp);
-	
-					int pricedue = p - ((p*d)/100);
-	
-					String strpricedue = Integer.toString(pricedue);
+						String qry2 = "select cost from facilities where id = ?";
+						PreparedStatement stmt2 = conn.con.prepareStatement(qry2);
+						stmt2.setInt(1,f_id);
+						ResultSet rs2 = stmt.executeQuery();
 						
-					price.setText(strpricedue);
+						cost = rs2.getInt("cost");
+						hours = rs1.getInt("hours");
+						
+						cost_of_fac += hours *  cost;
+
+					}
+					//cost_of_fac will now have the total value of after running through every tuple in the loop
+					//convert cost_of_fac to string to put it in fcost.setText()
+					String fc = Integer.toString(cost_of_fac);
+					fcost.setText(fc);
+					
+					//do it similarly for room_service
+					
+					//for the code of books table
+					qry = "select room_no,check_in - check_out as stay from books where u_id = ?";
+					stmt = conn.con.prepareStatement(qry);
+					stmt.setInt(1, user_id);
+					rs1 = stmt.executeQuery();
+					
+					//only one tuple will be selected(only one row)
+
+					int room_no = rs1.getInt("room_no");  //use this to make the room free later
+//					Date check_in = rs1.getDate("check_in");
+//					Date check_out = rs1.getDate("checkout");
+					
+					
+					
+
 	
 				}
 				else
@@ -185,19 +161,19 @@ public class bill extends JFrame {
 		contentPane.add(btnSubmit);
 		
 		JLabel lblBillId = new JLabel("Bill ID:");
-		lblBillId.setBounds(18, 110, 61, 16);
+		lblBillId.setBounds(18, 88, 61, 16);
 		contentPane.add(lblBillId);
 		
-		JLabel lbldiscount = new JLabel("Discount:");
-		lbldiscount.setBounds(18, 188, 61, 16);
+		JLabel lbldiscount = new JLabel("Room Service Cost");
+		lbldiscount.setBounds(18, 153, 124, 26);
 		contentPane.add(lbldiscount);
 		
 		JLabel lblPricedue = new JLabel("Price Due:");
 		lblPricedue.setBounds(18, 234, 69, 16);
 		contentPane.add(lblPricedue);
 				
-		JLabel lblprice = new JLabel("Price:");
-		lblprice.setBounds(18, 150, 61, 16);
+		JLabel lblprice = new JLabel("Facilities Cost:");
+		lblprice.setBounds(18, 125, 109, 16);
 		contentPane.add(lblprice);
 		
 		
@@ -267,7 +243,14 @@ public class bill extends JFrame {
 		button.setBounds(4, 6, 83, 29);
 		contentPane.add(button);
 		
+		JLabel lblNewLabel = new JLabel("Booking Cost:");
+		lblNewLabel.setBounds(18, 191, 124, 16);
+		contentPane.add(lblNewLabel);
+		
+		JLabel booking = new JLabel("");
+		booking.setBounds(197, 188, 61, 16);
+		contentPane.add(booking);
+		
 		
 	}
-
 }

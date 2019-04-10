@@ -61,16 +61,6 @@ create table bill(
 Create sequence bill_id start with 1
 increment by 1;
 
---table to store final prices of facilities usage, roomservice usage and room booking fee
-
-create table allprices(
-	u_id int references user_1,
-	facilities_price int default 0,
-	roomservice_price int default 0;
-	roombooking_price int default 0;
-
-);
-
 	-- relationship table
 
 create table books(
