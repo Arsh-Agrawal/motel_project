@@ -84,7 +84,7 @@ public class first extends JFrame {
 				
 				if((pass != null || !pswd.isEmpty()) && (uname != null || !unm.isEmpty()))
 				{
-					String qry = "select count(*) as cnt  where username =? and password = ?";
+					String qry = "select count(*) as cnt from admin where username =? and password = ?";
 					try {
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setString(1,unm);
@@ -97,6 +97,7 @@ public class first extends JFrame {
 						{
 							//open the customer_reg frame
 							dispose();
+							new customer_reg();
 						}
 						else
 						{

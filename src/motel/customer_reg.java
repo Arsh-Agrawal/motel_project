@@ -119,7 +119,7 @@ public class customer_reg extends JFrame {
 				{
 					if((first_name != null || !f_name.isEmpty()) && (last_name != null || !l_name.isEmpty()) && (address != null || !addr.isEmpty()) && (phone != null || !phn.isEmpty()))
 					{
-						String qry = "insert into user values(?, ?, ?, ?)";
+						String qry = "insert into user_1 values(?, ?, ?, ?)";
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setString(1,f_name);
 						stmt.setString(2,l_name);
@@ -131,7 +131,7 @@ public class customer_reg extends JFrame {
 						{
 							reply = reply + "Updated records.";
 	
-							String qry1 = "select id from user where fname = f_name and lname = l_name and address = addr and phone = phn";
+							String qry1 = "select id from user_1 where fname = f_name and lname = l_name and address = addr and phone = phn";
 							ResultSet rs =  stmt.executeQuery(qry1);
 							int id = rs.getInt("id");
 							return_id.setText("User ID: " + id);
