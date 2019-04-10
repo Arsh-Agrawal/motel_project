@@ -93,7 +93,53 @@ public class bill extends JFrame {
 			
 			//making database connection
 			connect conn = new connect();
+
+			//////////////////////////////////////////////////////
+
+			//updating allprices table with user_id 
+
+			String qry = "update allprices set u_id = user_id";
+			PreparedStatement stmt = conn.con.prepareStatement(qry);
+
+			//all price calculations
+
+			int fac_id;
+			int fac_price;
+			int fac_hours;
+			//int service_price;
+			//int service_number;
+			//int booking_price;
 			
+			while(rs1.next())
+			{
+
+				qry = "select id, cost from facilities, uses where id = f_id";
+				stmt = conn.con.prepareStatement(qry);
+
+				fac_id = rs1.getInt("id");
+				fac_price = rs1.getInt("cost");
+
+				while(rs2.next())
+				{
+					qry = "select hours from uses where u_id = user_id and f_id = fac_id";
+					stmt = conn.con.prepareStatement(qry);
+
+					fac_hours = rs2.getInt("hours");
+
+					fac_price = fac_hours * fac_price;
+
+					qry = "update allprices set facilities_price = facilities_price + fac_price where u_id = user_id";
+					// adding total facilities fees to one tuple.
+					stmt = conn.con.prepareStatement(qry);
+
+				}
+
+			}
+
+			
+			//////////////////////////////////////////////////////
+			
+
 			try
 			{
 				if(uid != null || !us_id.isEmpty())
