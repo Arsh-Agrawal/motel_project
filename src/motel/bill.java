@@ -125,8 +125,34 @@ public class bill extends JFrame {
 					//convert cost_of_fac to string to put it in fcost.setText()
 					String fc = Integer.toString(cost_of_fac);
 					fcost.setText(fc);
-					
+
 					//do it similarly for room_service
+
+					qry = "select r_id, quantity from orders where u_id = ?";
+					PreparedStatement stmt1 = conn.con.prepareStatement(qry);
+					stmt1.setInt(1, user_id);
+					ResultSet rs3 = stmt1.executeQuery();
+
+					int quantity=0, r_id=0, cost_of_serv=0, cost1=0;
+					while(rs3.next())
+					{
+						r_id = rs3.getInt("r_id");
+						
+						String qry3 = "select cost from room_service where id = ?";
+						PreparedStatement stmt3 = conn.con.prepareStatement(qry3);
+						stmt3.setInt(1, r_id);
+						ResultSet rs4 = stmt.executeQuery();
+
+						cost1 = rs4.getInt("cost");
+						quantity = rs3.getInt("quantity");
+
+						cost_of_serv += quantity * cost1;
+
+
+					}
+					
+					String rserv = Integer.toString(cost_of_serv);
+					rservice.setText(rserv);
 					
 					//for the code of books table
 					qry = "select room_no,check_in - check_out as stay from books where u_id = ?";
