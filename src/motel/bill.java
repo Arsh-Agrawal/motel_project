@@ -162,11 +162,25 @@ public class bill extends JFrame {
 					
 					//only one tuple will be selected(only one row)
 
-					int room_no = rs1.getInt("room_no");  //use this to make the room free later
-//					Date check_in = rs1.getDate("check_in");
-//					Date check_out = rs1.getDate("checkout");
+					int r_no = rs1.getInt("room_no");  //use this to make the room free later
+
+					Date check_in = rs1.getDate("check_in");
+					Date check_out = rs1.getDate("checkout");
+
+					long difference = check_out.getTime() - check_in.getTime();
+
+					float nights = (difference / (1000*60*60*24)) - 1; //no of days - 1
+
+
+
+					qry = "select cost_per_night from type_1 natural joins room where room_no = r_no";
+
+					int c_p_n = rs1.getInt("cost_per_night");
+
+					booking_cost = c_p_n * nights;
 					
-					
+					String books = Integer.toString(booking_cost);
+					booking.setText(books);
 					
 
 	
