@@ -141,7 +141,7 @@ public class bill extends JFrame {
 						String qry3 = "select cost from room_service where id = ?";
 						PreparedStatement stmt3 = conn.con.prepareStatement(qry3);
 						stmt3.setInt(1, r_id);
-						ResultSet rs4 = stmt.executeQuery();
+						ResultSet rs4 = stmt1.executeQuery();
 
 						cost1 = rs4.getInt("cost");
 						quantity = rs3.getInt("quantity");
