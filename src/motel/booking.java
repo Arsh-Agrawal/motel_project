@@ -115,9 +115,18 @@ public class booking extends JFrame {
 				String user_id = userid.getText();
 				String msg = "";
 				
-				if(( userid != null || !user_id.isEmpty()) && (chckin != null || !checkin.isEmpty()) && (chkout != null || !checkout.isEmpty()))
+				if(( userid != null && !user_id.isEmpty()) && (chckin != null && !checkin.isEmpty()) && (chkout != null && !checkout.isEmpty()))
 				{
-					int uid = Integer.parseInt(user_id); 
+					int uid = 0;
+					try
+					{
+						uid = Integer.parseInt(user_id); 
+					}
+					catch(Exception err)
+					{
+						return_msg.setText("Please enter in right format");
+					}
+					
 					java.util.Date chin = new java.util.Date();
 					java.util.Date chout = new java.util.Date();
 					
@@ -162,14 +171,23 @@ public class booking extends JFrame {
 					
 					try
 					{
-						
-						
-						String qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
+						String qry = "select count(*) as cnt from user_1 where u_id = ?";
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
+						stmt.setInt(1, uid);
+						ResultSet rs1 = stmt.executeQuery();
+						int count = rs1.getInt("cnt");
+						if(count == 0)
+						{
+							return_msg.setText("Please enter valid user id");
+							return;
+						}
+						
+						qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
+						stmt = conn.con.prepareStatement(qry);
 						stmt.setInt(1,room_type);
 						ResultSet rs = stmt.executeQuery();
 						
-						int count = rs.getInt("count");
+						count = rs.getInt("count");
 						
 						if(count == 0 )
 						{
@@ -232,6 +250,10 @@ public class booking extends JFrame {
 					catch(Exception error) {
 						System.out.print(error);
 					}
+				}
+				else
+				{
+					return_msg.setText("Input all values");
 				}
 			}
 		});

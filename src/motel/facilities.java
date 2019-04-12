@@ -83,7 +83,7 @@ public class facilities extends JFrame {
 				{
 					
 					
-					if(uid != null || !u_id.isEmpty())
+					if(uid != null && !u_id.isEmpty())
 					{
 								
 						if(gym_hours != 0)

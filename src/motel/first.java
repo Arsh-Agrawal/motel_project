@@ -68,6 +68,10 @@ public class first extends JFrame {
 		lblPassword.setBounds(255, 20, 178, 27);
 		contentPane.add(lblPassword);
 		
+		JLabel err_msg = new JLabel("");
+		err_msg.setBounds(99, 194, 279, 27);
+		contentPane.add(err_msg);
+		
 		
 		
 		JButton login = new JButton("Login");
@@ -78,7 +82,7 @@ public class first extends JFrame {
 				String unm = uname.getText();
 				connect conn = new connect();
 				
-				if((pass != null || !pswd.isEmpty()) && (uname != null || !unm.isEmpty()))
+				if((pass != null && !pswd.isEmpty()) && (uname != null && !unm.isEmpty()))
 				{
 					String qry = "select count(*) as cnt from admin where username =? and password = ?";
 					try 
@@ -96,13 +100,15 @@ public class first extends JFrame {
 							dispose();
 							new customer_reg();
 						}
-						else
-						{
-							err_msg.setText("wrong Username or Password!!");
-						}
 					}
 					catch(Exception error) {System.out.println(error);}
+					
 				}
+				else
+				{
+					err_msg.setText("wrong Username or Password!!");
+				}
+					
 				
 			}
 		});
@@ -110,9 +116,7 @@ public class first extends JFrame {
 		login.setBounds(162, 123, 117, 29);
 		contentPane.add(login);
 		
-		err_msg = new JLabel("");
-		err_msg.setBounds(162, 197, 117, 16);
-		contentPane.add(err_msg);
+		
 		
 		pass = new JPasswordField();
 		pass.setBounds(265, 56, 168, 26);

@@ -90,9 +90,18 @@ public class bill extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//submit
-			String us_id = uid.getText();
-			int user_id = Integer.parseInt(us_id);
-
+			int user_id = 0;
+			String us_id= "";
+			try
+			{
+				us_id = uid.getText();
+				user_id = Integer.parseInt(us_id);
+			}
+			catch(Exception err)
+			{
+				return_msg.setText("Please enter correct user id");
+				return;
+			}
 			String reply = "";
 			
 			//making database connection
@@ -103,11 +112,23 @@ public class bill extends JFrame {
 				if(uid != null || !us_id.isEmpty())
 				{
 	
-					//query for facilities cost
-					String qry = "select f_id,hours from uses where u_id = ?";
+					String qry = "select count(*) as cnt from user_1 where u_id = ?";
 					PreparedStatement stmt = conn.con.prepareStatement(qry);
 					stmt.setInt(1, user_id);
 					ResultSet rs1 = stmt.executeQuery();
+					int count = rs1.getInt("cnt");
+					if(count == 0)
+					{
+						return_msg.setText("Please enter valid user id");
+						return;
+					}
+					
+					
+					//query for facilities cost
+					qry = "select f_id,hours from uses where u_id = ?";
+					stmt = conn.con.prepareStatement(qry);
+					stmt.setInt(1, user_id);
+					rs1 = stmt.executeQuery();
 					
 					int hours=0, f_id=0, cost_of_fac = 0, cost=0;
 					while(rs1.next())
