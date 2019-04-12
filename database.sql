@@ -6,6 +6,24 @@
 
 	-- entities table
 
+drop table orders;
+drop table uses;
+drop table books;
+drop table bill;
+drop table room_service;
+drop table user_1;
+drop table facilities;
+drop table room;
+drop table type_1;
+drop table admin;
+
+drop sequence user_1_id_seq;
+drop sequence type_1_id_seq;
+drop sequence room_no_seq;
+drop sequence bill_id;
+
+
+
 create table user_1(
 	id int not null primary key,
 	fname varchar(10) not null,
@@ -29,7 +47,7 @@ increment by 1;
 
 create table room(
 	room_no int not null primary key,
-	status boolean default room_no_seq.nextval,0,
+	status int default 0,
 	floor int not null,
 	type_id int references type_1
 	-- foreign key (type_id) references type_1(id)
@@ -80,7 +98,7 @@ create table uses(
 
 );
 
--- for room_serviceu
+-- for room_service
 create table orders(
 	u_id int references user_1,
 	r_id int references room_service,
@@ -89,78 +107,78 @@ create table orders(
 );
 
 create table admin(
-	user_1name varchar(20),
+	username varchar(20),
 	password varchar(20)
 );
 
-insert into admin values("testing", "test1");
-insert into admin values("test2", "test2");
+insert into admin values('testing', 'test1');
+insert into admin values('test2', 'test2');
 
-insert into type_1 values(type_1_id_seq.nextval,"Single", 1, 2000);
-insert into type_1 values(type_1_id_seq.nextval,"Double", 2, 4000);
-insert into type_1 values(type_1_id_seq.nextval,"Deluxe", 2, 5000);
+insert into type_1 values(type_1_id_seq.nextval,'Single', 1, 2000);
+insert into type_1 values(type_1_id_seq.nextval,'Double', 2, 4000);
+insert into type_1 values(type_1_id_seq.nextval,'Deluxe', 2, 5000);
 
 
-insert into room values(room_no_seq.nextval,0, 1);
-insert into room values(room_no_seq.nextval,0, 1);
-insert into room values(room_no_seq.nextval,0, 1);
-insert into room values(room_no_seq.nextval,0, 1);
-insert into room values(room_no_seq.nextval,0, 1);
-insert into room values(room_no_seq.nextval,0, 2);
-insert into room values(room_no_seq.nextval,0, 2);
-insert into room values(room_no_seq.nextval,0, 2);
-insert into room values(room_no_seq.nextval,0, 2);
-insert into room values(room_no_seq.nextval,0, 2);
-insert into room values(room_no_seq.nextval,0, 3);
-insert into room values(room_no_seq.nextval,0, 3);
-insert into room values(room_no_seq.nextval,0, 3);
-insert into room values(room_no_seq.nextval,0, 3);
-insert into room values(room_no_seq.nextval,0, 3);
-insert into room values(room_no_seq.nextval,1, 1);
-insert into room values(room_no_seq.nextval,1, 1);
-insert into room values(room_no_seq.nextval,1, 1);
-insert into room values(room_no_seq.nextval,1, 1);
-insert into room values(room_no_seq.nextval,1, 1);
-insert into room values(room_no_seq.nextval,1, 2);
-insert into room values(room_no_seq.nextval,1, 2);
-insert into room values(room_no_seq.nextval,1, 2);
-insert into room values(room_no_seq.nextval,1, 2);
-insert into room values(room_no_seq.nextval,1, 2);
-insert into room values(room_no_seq.nextval,1, 3);
-insert into room values(room_no_seq.nextval,1, 3);
-insert into room values(room_no_seq.nextval,1, 3);
-insert into room values(room_no_seq.nextval,1, 3);
-insert into room values(room_no_seq.nextval,1, 3);
-insert into room values(room_no_seq.nextval,2, 1);
-insert into room values(room_no_seq.nextval,2, 1);
-insert into room values(room_no_seq.nextval,2, 1);
-insert into room values(room_no_seq.nextval,2, 1);
-insert into room values(room_no_seq.nextval,2, 1);
-insert into room values(room_no_seq.nextval,2, 2);
-insert into room values(room_no_seq.nextval,2, 2);
-insert into room values(room_no_seq.nextval,2, 2);
-insert into room values(room_no_seq.nextval,2, 2);
-insert into room values(room_no_seq.nextval,2, 2);
-insert into room values(room_no_seq.nextval,2, 3);
-insert into room values(room_no_seq.nextval,2, 3);
-insert into room values(room_no_seq.nextval,2, 3);
-insert into room values(room_no_seq.nextval,2, 3);
-insert into room values(room_no_seq.nextval,2, 3);
-insert into room values(room_no_seq.nextval,3, 1);
-insert into room values(room_no_seq.nextval,3, 1);
-insert into room values(room_no_seq.nextval,3, 1);
-insert into room values(room_no_seq.nextval,3, 1);
-insert into room values(room_no_seq.nextval,3, 1);
-insert into room values(room_no_seq.nextval,3, 2);
-insert into room values(room_no_seq.nextval,3, 2);
-insert into room values(room_no_seq.nextval,3, 2);
-insert into room values(room_no_seq.nextval,3, 2);
-insert into room values(room_no_seq.nextval,3, 2);
-insert into room values(room_no_seq.nextval,3, 3);
-insert into room values(room_no_seq.nextval,3, 3);
-insert into room values(room_no_seq.nextval,3, 3);
-insert into room values(room_no_seq.nextval,3, 3);
-insert into room values(room_no_seq.nextval,3, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,0, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,1, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,2, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 1);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 2);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 3);
+insert into room(room_no, floor, type_id) values(room_no_seq.nextval,3, 3);
 
 
 					
