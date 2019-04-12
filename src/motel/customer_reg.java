@@ -131,8 +131,13 @@ public class customer_reg extends JFrame {
 						{
 							reply = reply + "Updated records.";
 	
-							String qry1 = "select id from user_1 where fname = f_name and lname = l_name and address = addr and phone = phn";
-							ResultSet rs =  stmt.executeQuery(qry1);
+							qry = "select id from user_1 where fname = ? and lname = ? and address = ? and phone = ?";
+							stmt = conn.con.prepareStatement(qry);
+							stmt.setString(1,f_name);
+							stmt.setString(2,l_name);
+							stmt.setString(3,addr);
+							stmt.setInt(4, ph);
+							ResultSet rs =  stmt.executeQuery(qry);
 							int id = rs.getInt("id");
 							return_id.setText("User ID: " + id);
 							

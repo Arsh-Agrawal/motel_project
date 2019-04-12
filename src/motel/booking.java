@@ -117,6 +117,7 @@ public class booking extends JFrame {
 				
 				if(( userid != null && !user_id.isEmpty()) && (chckin != null && !checkin.isEmpty()) && (chkout != null && !checkout.isEmpty()))
 				{
+					//input value validation
 					int uid = 0;
 					try
 					{
@@ -171,6 +172,7 @@ public class booking extends JFrame {
 					
 					try
 					{
+						//user id validation
 						String qry = "select count(*) as cnt from user_1 where u_id = ?";
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setInt(1, uid);

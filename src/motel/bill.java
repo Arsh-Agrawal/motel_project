@@ -90,6 +90,8 @@ public class bill extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//submit
+			
+			//checking if user id is correct formate
 			int user_id = 0;
 			String us_id= "";
 			try
@@ -111,7 +113,8 @@ public class bill extends JFrame {
 			{
 				if(uid != null || !us_id.isEmpty())
 				{
-	
+					
+					//checking for existence of user_id
 					String qry = "select count(*) as cnt from user_1 where u_id = ?";
 					PreparedStatement stmt = conn.con.prepareStatement(qry);
 					stmt.setInt(1, user_id);

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -69,10 +70,19 @@ public class facilities extends JFrame {
 				String shhrs = id3.getText();
 				String u_id = uid.getText();
 				
-				int gym_hours = Integer.parseInt(ghrs);
-				int pool_hours = Integer.parseInt(phrs);
-				int shuttle = Integer.parseInt(shhrs);
-				int user_id = Integer.parseInt(u_id);
+				int gym_hours = 0,pool_hours = 0, shuttle = 0, user_id = 0;
+				try
+				{
+					gym_hours = Integer.parseInt(ghrs);
+					pool_hours = Integer.parseInt(phrs);
+					shuttle = Integer.parseInt(shhrs);
+					user_id = Integer.parseInt(u_id);
+				}
+				catch(Exception err)
+				{
+					msg.setText("Input values in correct formate");
+					return;
+				}
 				
 				String reply = "";
 				
@@ -81,6 +91,25 @@ public class facilities extends JFrame {
 				 
 				try 
 				{
+					try
+					{
+						//user id validation
+						String qry = "select count(*) as cnt from user_1 where u_id = ?";
+						PreparedStatement stmt = conn.con.prepareStatement(qry);
+						stmt.setInt(1, user_id);
+						ResultSet rs1 = stmt.executeQuery();
+						int count = rs1.getInt("cnt");
+						if(count == 0)
+						{
+							msg.setText("Please enter valid user id");
+							return;
+						}
+					}
+					catch(Exception err)
+					{
+						msg.setText("database connection error");
+						return;
+					}
 					
 					
 					if(uid != null && !u_id.isEmpty())

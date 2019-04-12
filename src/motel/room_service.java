@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class room_service extends JFrame {
@@ -137,12 +138,22 @@ public class room_service extends JFrame {
 				String text5 = id5.getText();
 				String text6 = uid.getText();
 				
-				int qt1 = Integer.parseInt(text1);
-				int qt2 = Integer.parseInt(text2);
-				int qt3 = Integer.parseInt(text3);
-				int qt4 = Integer.parseInt(text4);
-				int qt5 = Integer.parseInt(text5);
-				int user_id = Integer.parseInt(text6);
+				int qt1 = 0, qt2 = 0, qt3 = 0, qt4 = 0, qt5 = 0, user_id = 0;
+				try
+				{
+					qt1 = Integer.parseInt(text1);
+					qt2 = Integer.parseInt(text2);
+					qt3 = Integer.parseInt(text2);
+					qt4 = Integer.parseInt(text2);
+					qt5 = Integer.parseInt(text2);
+					user_id = Integer.parseInt(text6);
+				}
+				catch(Exception err)
+				{
+					msg.setText("Enter values in right format");
+					return;
+				}
+			
 				
 				String reply = "";
 				
@@ -152,6 +163,26 @@ public class room_service extends JFrame {
 				{
 					if(text6 != null && !text6.isEmpty())
 					{
+						try
+						{
+							//user id validation
+							String qry = "select count(*) as cnt from user_1 where u_id = ?";
+							PreparedStatement stmt = conn.con.prepareStatement(qry);
+							stmt.setInt(1, user_id);
+							ResultSet rs1 = stmt.executeQuery();
+							int count = rs1.getInt("cnt");
+							if(count == 0)
+							{
+								msg.setText("Please enter valid user id");
+								return;
+							}
+						}
+						catch(Exception err)
+						{
+							msg.setText("database connection error");
+							return;
+						}
+						
 						if(qt1 != 0)
 						{
 							String qry = "insert into orders values(?,?,?)";
