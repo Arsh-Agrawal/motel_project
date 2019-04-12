@@ -82,6 +82,10 @@ public class bill extends JFrame {
 		price.setBounds(103, 234, 61, 16);
 		contentPane.add(price);
 		
+		JLabel booking = new JLabel("");
+		booking.setBounds(197, 188, 61, 16);
+		contentPane.add(booking);
+		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +117,7 @@ public class bill extends JFrame {
 						String qry2 = "select cost from facilities where id = ?";
 						PreparedStatement stmt2 = conn.con.prepareStatement(qry2);
 						stmt2.setInt(1,f_id);
-						ResultSet rs2 = stmt.executeQuery();
+						ResultSet rs2 = stmt2.executeQuery();
 						
 						cost = rs2.getInt("cost");
 						hours = rs1.getInt("hours");
@@ -129,22 +133,22 @@ public class bill extends JFrame {
 					//do it similarly for room_service
 
 					qry = "select r_id, quantity from orders where u_id = ?";
-					PreparedStatement stmt1 = conn.con.prepareStatement(qry);
-					stmt1.setInt(1, user_id);
-					ResultSet rs3 = stmt1.executeQuery();
+					stmt = conn.con.prepareStatement(qry);
+					stmt.setInt(1, user_id);
+					rs1 = stmt.executeQuery();
 
 					int quantity=0, r_id=0, cost_of_serv=0, cost1=0;
-					while(rs3.next())
+					while(rs1.next())
 					{
-						r_id = rs3.getInt("r_id");
+						r_id = rs1.getInt("r_id");
 						
 						String qry3 = "select cost from room_service where id = ?";
-						PreparedStatement stmt3 = conn.con.prepareStatement(qry3);
-						stmt3.setInt(1, r_id);
-						ResultSet rs4 = stmt1.executeQuery();
+						PreparedStatement stmt2 = conn.con.prepareStatement(qry3);
+						stmt2.setInt(1, r_id);
+						ResultSet rs2 = stmt2.executeQuery();
 
-						cost1 = rs4.getInt("cost");
-						quantity = rs3.getInt("quantity");
+						cost1 = rs2.getInt("cost");
+						quantity = rs2.getInt("quantity");
 
 						cost_of_serv += quantity * cost1;
 
@@ -162,7 +166,7 @@ public class bill extends JFrame {
 					
 					//only one tuple will be selected(only one row)
 
-					int r_no = rs1.getInt("room_no");  //use this to make the room free later
+					int r_no = rs1.getInt("room_no"); 
 
 					Date check_in = rs1.getDate("check_in");
 					Date check_out = rs1.getDate("checkout");
@@ -173,16 +177,17 @@ public class bill extends JFrame {
 
 
 
-					qry = "select cost_per_night from type_1 natural joins room where room_no = r_no";
+					qry = "select cost_per_night from type_1 natural joins room where room_no = ?";
+					stmt = conn.con.prepareStatement(qry);
+					stmt.setInt(1, r_no);
 
 					int c_p_n = rs1.getInt("cost_per_night");
 
-					booking_cost = c_p_n * nights;
+					float booking_cost = c_p_n * nights;
 					
-					String books = Integer.toString(booking_cost);
+					String books = Float.toString(booking_cost);
 					booking.setText(books);
 					
-
 	
 				}
 				else
@@ -287,9 +292,6 @@ public class bill extends JFrame {
 		lblNewLabel.setBounds(18, 191, 124, 16);
 		contentPane.add(lblNewLabel);
 		
-		JLabel booking = new JLabel("");
-		booking.setBounds(197, 188, 61, 16);
-		contentPane.add(booking);
 		
 		
 	}

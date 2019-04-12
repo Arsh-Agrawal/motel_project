@@ -85,7 +85,8 @@ public class first extends JFrame {
 				if((pass != null || !pswd.isEmpty()) && (uname != null || !unm.isEmpty()))
 				{
 					String qry = "select count(*) as cnt from admin where username =? and password = ?";
-					try {
+					try 
+					{
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setString(1,unm);
 						stmt.setString(2,pswd);
