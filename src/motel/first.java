@@ -15,13 +15,14 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class first extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField uname;
-	private JTextField pass;
 	private JLabel err_msg;
+	private JPasswordField pass;
 
 	/**
 	 * Launch the application.
@@ -66,11 +67,6 @@ public class first extends JFrame {
 		lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPassword.setBounds(255, 20, 178, 27);
 		contentPane.add(lblPassword);
-		
-		pass = new JTextField();
-		pass.setBounds(255, 59, 164, 19);
-		contentPane.add(pass);
-		pass.setColumns(10);
 		
 		
 		
@@ -117,6 +113,10 @@ public class first extends JFrame {
 		err_msg = new JLabel("");
 		err_msg.setBounds(162, 197, 117, 16);
 		contentPane.add(err_msg);
+		
+		pass = new JPasswordField();
+		pass.setBounds(265, 56, 168, 26);
+		contentPane.add(pass);
 		
 	}
 }
