@@ -173,23 +173,26 @@ public class booking extends JFrame {
 					try
 					{
 						//user id validation
-						String qry = "select count(*) as cnt from user_1 where u_id = ?";
+						String qry = "select count(*) from user_1 where u_id = ?";
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
 						stmt.setInt(1, uid);
 						ResultSet rs1 = stmt.executeQuery();
-						int count = rs1.getInt("cnt");
+						rs1.next(); //bringing it to point first row
+						int count = rs1.getInt(1);
+						
 						if(count == 0)
 						{
 							return_msg.setText("Please enter valid user id");
 							return;
 						}
 						
-						qry = "Select count(*) as count from room where status = 0 and type_id = ? ";
+						qry = "Select count(*) from room where status = 0 and type_id = ? ";
 						stmt = conn.con.prepareStatement(qry);
 						stmt.setInt(1,room_type);
 						ResultSet rs = stmt.executeQuery();
+						rs.next(); //bringing it to point first row
 						
-						count = rs.getInt("count");
+						count = rs.getInt(1);
 						
 						if(count == 0 )
 						{
@@ -204,11 +207,12 @@ public class booking extends JFrame {
 							stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1,room_type);
 							rs = stmt.executeQuery();
+							rs.next(); //bringing it to point first row
 							
 							//retrieving the first row(tuple)
 							
-							int room_no = rs.getInt("room_no");
-							int floor = rs.getInt("floor");
+							int room_no = rs.getInt(1);
+							int floor = rs.getInt(2);
 							
 							//inserting into the table books
 							qry = "insert into books values (?,?,?,?)";

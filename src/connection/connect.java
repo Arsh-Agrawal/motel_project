@@ -17,6 +17,7 @@ public class connect{
 
             con = DriverManager.
             getConnection("jdbc:oracle:thin:@localhost:1521:xe","user","password");
+            
 
 //            Statement stm = con.createStatement();
 

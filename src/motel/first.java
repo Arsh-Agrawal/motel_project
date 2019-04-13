@@ -78,13 +78,13 @@ public class first extends JFrame {
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String pswd = pass.getText();
+				String pswd = new String(pass.getPassword());
 				String unm = uname.getText();
 				connect conn = new connect();
 				
 				if((pass != null && !pswd.isEmpty()) && (uname != null && !unm.isEmpty()))
 				{
-					String qry = "select count(*) as cnt from admin where username =? and password = ?";
+					String qry = "select count(*) from admin where username =? and password = ?";
 					try 
 					{
 						PreparedStatement stmt = conn.con.prepareStatement(qry);
@@ -92,8 +92,8 @@ public class first extends JFrame {
 						stmt.setString(2,pswd);
 						
 						ResultSet rs = stmt.executeQuery();
-					
-						int count = rs.getInt("cnt");
+						rs.next(); //bringing it to point first row
+						int count = rs.getInt(1);
 						if(count == 1)
 						{
 							//open the customer_reg frame

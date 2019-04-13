@@ -166,11 +166,12 @@ public class room_service extends JFrame {
 						try
 						{
 							//user id validation
-							String qry = "select count(*) as cnt from user_1 where u_id = ?";
+							String qry = "select count(*) from user_1 where u_id = ?";
 							PreparedStatement stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1, user_id);
 							ResultSet rs1 = stmt.executeQuery();
-							int count = rs1.getInt("cnt");
+							rs1.next(); //bringing it to point first row
+							int count = rs1.getInt(1);
 							if(count == 0)
 							{
 								msg.setText("Please enter valid user id");
