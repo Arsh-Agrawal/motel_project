@@ -166,7 +166,7 @@ public class room_service extends JFrame {
 						try
 						{
 							//user id validation
-							String qry = "select count(*) from user_1 where u_id = ?";
+							String qry = "select count(*) from user_1 where id = ?";
 							PreparedStatement stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1, user_id);
 							ResultSet rs1 = stmt.executeQuery();
@@ -246,7 +246,7 @@ public class room_service extends JFrame {
 							String qry = "insert into orders values(?,?,?)";
 							PreparedStatement stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1,user_id);
-							stmt.setInt(2,3);
+							stmt.setInt(2,4);
 							stmt.setInt(3,qt4);
 							
 							int i = stmt.executeUpdate();
@@ -265,7 +265,7 @@ public class room_service extends JFrame {
 							String qry = "insert into orders values(?,?,?)";
 							PreparedStatement stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1,user_id);
-							stmt.setInt(2,3);
+							stmt.setInt(2,5);
 							stmt.setInt(3,qt5);
 							
 							int i = stmt.executeUpdate();

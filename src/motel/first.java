@@ -72,6 +72,9 @@ public class first extends JFrame {
 		err_msg.setBounds(99, 194, 279, 27);
 		contentPane.add(err_msg);
 		
+		pass = new JPasswordField();
+		pass.setBounds(265, 56, 168, 26);
+		contentPane.add(pass);
 		
 		
 		JButton login = new JButton("Login");
@@ -100,6 +103,10 @@ public class first extends JFrame {
 							dispose();
 							new customer_reg();
 						}
+						else
+						{
+							err_msg.setText("Wrong Username or Password");
+						}
 					}
 					catch(Exception error) {System.out.println(error);}
 					
@@ -118,9 +125,7 @@ public class first extends JFrame {
 		
 		
 		
-		pass = new JPasswordField();
-		pass.setBounds(265, 56, 168, 26);
-		contentPane.add(pass);
+		
 		
 	}
 }

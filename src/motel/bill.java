@@ -111,14 +111,15 @@ public class bill extends JFrame {
 			
 			try
 			{
-				if(uid != null || !us_id.isEmpty())
+				if(uid != null && !us_id.isEmpty())
 				{
 					
 					//checking for existence of user_id
-					String qry = "select count(*) as cnt from user_1 where u_id = ?";
+					String qry = "select count(*) from user_1 where id = ?";
 					PreparedStatement stmt = conn.con.prepareStatement(qry);
 					stmt.setInt(1, user_id);
 					ResultSet rs1 = stmt.executeQuery();
+					rs1.next();
 					int count = rs1.getInt(1); //coloumn number
 					if(count == 0)
 					{
@@ -133,16 +134,18 @@ public class bill extends JFrame {
 					stmt.setInt(1, user_id);
 					rs1 = stmt.executeQuery();
 					
+					PreparedStatement stmt2;
 					int hours=0, f_id=0, cost_of_fac = 0, cost=0;
+					ResultSet rs2;
 					while(rs1.next())
 					{
 						f_id = rs1.getInt(1);
 						
-						String qry2 = "select cost from facilities where id = ?";
-						PreparedStatement stmt2 = conn.con.prepareStatement(qry2);
+						qry = "select cost from facilities where id = ?";
+						stmt2 = conn.con.prepareStatement(qry);
 						stmt2.setInt(1,f_id);
-						ResultSet rs2 = stmt2.executeQuery();
-						
+						rs2 = stmt2.executeQuery();
+						rs2.next();
 						cost = rs2.getInt(1);
 						hours = rs1.getInt(2);
 						
@@ -166,11 +169,12 @@ public class bill extends JFrame {
 					{
 						r_id = rs1.getInt(1);
 						
-						String qry3 = "select cost from room_service where id = ?";
-						PreparedStatement stmt2 = conn.con.prepareStatement(qry3);
+						qry = "select cost from room_service where id = ?";
+						stmt2 = conn.con.prepareStatement(qry);
 						stmt2.setInt(1, r_id);
-						ResultSet rs2 = stmt2.executeQuery();
-
+						rs2 = stmt2.executeQuery();
+						rs2.next();
+						
 						cost1 = rs2.getInt(1);
 						quantity = rs2.getInt(2);
 
@@ -201,7 +205,7 @@ public class bill extends JFrame {
 
 
 
-					qry = "select cost_per_night from type_1 natural joins room where room_no = ?";
+					qry = "select cost_per_night from type_1, room where room_no = ? and id = type_id";
 					stmt = conn.con.prepareStatement(qry);
 					stmt.setInt(1, r_no);
 
@@ -211,7 +215,58 @@ public class bill extends JFrame {
 					
 					String books = Float.toString(booking_cost);
 					booking.setText(books);
-					
+					JButton btnNewButton = new JButton("Pay");
+					btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							//pay
+							String us_id = uid.getText();
+							int user_id = Integer.parseInt(us_id);
+							
+							String reply = "";
+							
+							//making database connection
+							connect conn = new connect();
+							
+							try
+							{
+								if(us_id!= null && !us_id.isEmpty())
+								{
+									String qry1 = "update room set status = 0 where room_no = (select room_no from books where u_id =?)";
+									PreparedStatement stmt = conn.con.prepareStatement(qry1);
+									stmt.setInt(1,user_id);
+									int t1 = stmt.executeUpdate();
+				
+									String qry2 = "delete from books where u_id = ?";
+									stmt = conn.con.prepareStatement(qry2);
+									stmt.setInt(1,user_id);
+									int t2 = stmt.executeUpdate();
+									
+									if(t1!=0  && t2!= 0)
+									{
+										dispose();
+										new thankyou();
+									}
+									else
+									{
+										reply = "database connection problem";
+										return_msg.setText(reply);
+									}
+									
+				
+								}
+								else
+								{
+									reply = "Please enter ur User ID";
+									return_msg.setText(reply);
+								}
+							}
+							catch(Exception error)
+							{
+								System.out.print(error);
+							}
+							
+						}
+					});
 	
 				}
 				else
@@ -247,58 +302,7 @@ public class bill extends JFrame {
 		
 		
 		
-		JButton btnNewButton = new JButton("Pay");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//pay
-				String us_id = uid.getText();
-				int user_id = Integer.parseInt(us_id);
-				
-				String reply = "";
-				
-				//making database connection
-				connect conn = new connect();
-				
-				try
-				{
-					if(us_id!= null && !us_id.isEmpty())
-					{
-						String qry1 = "update room set status = 0 from room natural join books where u_id = ?";
-						PreparedStatement stmt = conn.con.prepareStatement(qry1);
-						stmt.setInt(1,user_id);
-						int t1 = stmt.executeUpdate();
-	
-						String qry2 = "delete from books where u_id = ?";
-						stmt = conn.con.prepareStatement(qry2);
-						stmt.setInt(1,user_id);
-						int t2 = stmt.executeUpdate();
-						
-						if(t1!=0  && t2!= 0)
-						{
-							dispose();
-							new thankyou();
-						}
-						else
-						{
-							reply = "database connection problem";
-							return_msg.setText(reply);
-						}
-						
-	
-					}
-					else
-					{
-						reply = "Please enter ur User ID";
-						return_msg.setText(reply);
-					}
-				}
-				catch(Exception error)
-				{
-					System.out.print(error);
-				}
-				
-			}
-		});
+		
 		btnNewButton.setBounds(299, 229, 117, 29);
 		contentPane.add(btnNewButton);
 		

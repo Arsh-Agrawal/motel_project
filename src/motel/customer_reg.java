@@ -108,7 +108,18 @@ public class customer_reg extends JFrame {
 				String addr = address.getText();
 				String phn = phone.getText();
 
-				int ph = Integer.parseInt(phn);
+				int ph = 0;
+				
+				try
+				{
+					ph = Integer.parseInt(phn);
+				}
+				catch(Exception err)
+				{
+					String msg ="wrong Phone input";
+					System.out.println(msg);
+					return;
+				}
 
 				String reply = "";
 
@@ -124,7 +135,7 @@ public class customer_reg extends JFrame {
 						stmt.setString(1,f_name);
 						stmt.setString(2,l_name);
 						stmt.setString(3,addr);
-						stmt.setInt(4, ph);
+						stmt.setString(4, phn);
 	
 						int i = stmt.executeUpdate();
 						if(i != 0)
@@ -136,13 +147,13 @@ public class customer_reg extends JFrame {
 							stmt.setString(1,f_name);
 							stmt.setString(2,l_name);
 							stmt.setString(3,addr);
-							stmt.setInt(4, ph);
+							stmt.setString(4, phn);
 							ResultSet rs =  stmt.executeQuery();
 							rs.next(); //bringing it to point first row
 							int id = rs.getInt(1);
 							return_id.setText("User ID: " + id);
 							
-							JButton btnNewButton = new JButton("New button");
+							JButton btnNewButton = new JButton("Proceed");
 							btnNewButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									dispose();

@@ -218,7 +218,7 @@ public class booking extends JFrame {
 							qry = "insert into books values (?,?,?,?)";
 							stmt = conn.con.prepareStatement(qry);
 							stmt.setInt(1,uid);
-							stmt.setInt(2, room_type);
+							stmt.setInt(2, room_no);
 							stmt.setDate(3, check_in);
 							stmt.setDate(4, check_out);
 							int check1 = stmt.executeUpdate();
@@ -226,7 +226,7 @@ public class booking extends JFrame {
 							//updating the table
 							qry = "update room set status = 1 from room where room_no = ?";
 							stmt = conn.con.prepareStatement(qry);
-							stmt.setInt(1,room_type);
+							stmt.setInt(1,room_no);
 							int check2 = stmt.executeUpdate();
 							
 							if(check1 != 0 && check2 != 0)
