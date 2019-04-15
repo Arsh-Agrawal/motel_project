@@ -190,6 +190,11 @@ public class customer_reg extends JFrame {
 		return_id.setBounds(90, 39, 129, 26);
 		contentPane.add(return_id);
 		
+		JLabel lblNewLabel_1 = new JLabel("Customer Registeration");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(142, 11, 178, 16);
+		contentPane.add(lblNewLabel_1);
+		
 		
 	}
 

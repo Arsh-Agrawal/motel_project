@@ -215,6 +215,8 @@ public class bill extends JFrame {
 					
 					String books = Float.toString(booking_cost);
 					booking.setText(books);
+					
+					
 					JButton btnNewButton = new JButton("Pay");
 					btnNewButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
@@ -266,7 +268,10 @@ public class bill extends JFrame {
 							}
 							
 						}
+						
 					});
+					btnNewButton.setBounds(299, 229, 117, 29);
+					contentPane.add(btnNewButton);
 	
 				}
 				else
@@ -303,13 +308,13 @@ public class bill extends JFrame {
 		
 		
 		
-		btnNewButton.setBounds(299, 229, 117, 29);
-		contentPane.add(btnNewButton);
+		
 		
 		JButton button = new JButton("<- BACK");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//back 
+				new amenities();
 				dispose();
 			}
 		});

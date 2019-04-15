@@ -101,7 +101,7 @@ public class first extends JFrame {
 						{
 							//open the customer_reg frame
 							dispose();
-							new customer_reg();
+							new user_login();
 						}
 						else
 						{
